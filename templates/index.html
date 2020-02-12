@@ -9,9 +9,21 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Tailwind</title>
     <link href="/static/dist/tailwind.css" rel="stylesheet" />
+    <script src="/static/js/main.js"></script>
   </head>
-  <body class="h-full">
+  <body class="flex flex-col min-h-screen">
     <div class="container mx-auto mt-16">
+      Test
+      <a
+        href="https://www.elastic.co/guide/en/beats/filebeat/master/dissect.html"
+        class="text-blue-600 visited:text-purple-600"
+      >
+        dissect processor
+      </a>
+      patterns on a few sample lines.
+    </div>
+
+    <div class="container mx-auto mt-16 flex-grow">
       <form class="w-full">
         <div class="md:flex md:items-center mb-6 flex-col">
           <label for="pattern" class="w-full text-lg pb-4">Pattern</label>
@@ -23,8 +35,8 @@
             value="Jane Doe"
             rows="10"
           >
-%{key1} %{key2}
-          </textarea>
+%{key1} %{key2}</textarea
+          >
         </div>
         <div class="md:flex md:items-center mb-8">
           <div class="w-1/2 mr-2">
@@ -99,12 +111,14 @@ a b</textarea
               class="bg-gray-200 appearance-none border-2 border-gray-200 rounded py-2 px-4
         text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500
         font-mono w-full"
-              id="samples"
+              id="results"
               rows="20"
-            >
-key1=a
-key2=b</textarea
-            >
+              placeholder="Output of the dissect tokenizer"
+              readonly
+            ></textarea>
+            <pre><code class="html">
+              <span class="mr-4">SUBMIT</span>
+            </code></pre>
           </div>
         </div>
         <div class="md:flex">
@@ -113,6 +127,7 @@ key2=b</textarea
               class="shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none
             text-white font-bold py-2 px-4 rounded w-full flex items-center h-12 justify-center"
               type="button"
+              onclick="testSamples()"
             >
               <span class="mr-4">SUBMIT</span>
               <svg
@@ -142,5 +157,9 @@ key2=b</textarea
         </div>
       </form>
     </div>
+    <footer class="bg-gray-100 p-8 text-center text-gray-500">
+      Built with 💖 by
+      <a href="https://twitter.com/jorgelbg">Jorge Luis Betancourt</a>
+    </footer>
   </body>
 </html>
