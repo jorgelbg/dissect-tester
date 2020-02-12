@@ -2,8 +2,10 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
 	"html/template"
 	"net/http"
+	"strings"
 
 	"github.com/elastic/beats/libbeat/processors/dissect"
 	"go.uber.org/zap"
@@ -36,19 +38,25 @@ func main() {
 			"tokenizer", tokenizer[0],
 		)
 
-		processor, err := dissect.New(tokenizer[0])
-		if err != nil {
-			http.Error(w, err.Error(), http.StatusBadRequest)
-			return
+		samples := strings.Split(str[0], "\n")
+		tokenized := make([]map[string]string, 0)
+		for i, s := range samples {
+			processor, err := dissect.New(tokenizer[0])
+			if err != nil {
+				http.Error(w, err.Error(), http.StatusBadRequest)
+				return
+			}
+
+			m, err := processor.Dissect(s)
+			if err != nil {
+				http.Error(w, fmt.Sprintf("sample: %d, error: %s", i, err), http.StatusBadRequest)
+				return
+			}
+
+			tokenized = append(tokenized, m)
 		}
 
-		m, err := processor.Dissect(str[0])
-		if err != nil {
-			http.Error(w, err.Error(), http.StatusBadRequest)
-			return
-		}
-
-		payload, err := json.Marshal(m)
+		payload, err := json.Marshal(tokenized)
 		if err != nil {
 			http.Error(w, "couldn't encode response", http.StatusNoContent)
 		}

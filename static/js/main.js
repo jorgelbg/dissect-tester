@@ -13,10 +13,23 @@ function testSamples() {
 
   fetch(url)
     .then(res => {
-      return res.json();
+      if (res.ok) {
+        return res.json();
+      }
+
+      return res.text();
     })
     .then(payload => {
-      console.log(payload);
-      resultTextArea.value = JSON.stringify(payload);
+      if (Array.isArray(payload)) {
+        let str = payload.map(s => JSON.stringify(s, null, 2));
+        resultTextArea.value = str.join("\n");
+        resultTextArea.focus();
+
+        return;
+      }
+
+      // handle the error message
+      resultTextArea.value = payload;
+      resultTextArea.focus();
     });
 }
