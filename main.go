@@ -2,14 +2,17 @@ package main
 
 import (
 	"encoding/json"
-	"fmt"
 	"html/template"
 	"net/http"
 
 	"github.com/elastic/beats/libbeat/processors/dissect"
+	"go.uber.org/zap"
 )
 
 func main() {
+	logger, _ := zap.NewProduction()
+	defer logger.Sync()
+
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		tmpl := template.Must(template.ParseFiles("templates/index.html"))
 		tmpl.Execute(w, nil)
@@ -28,7 +31,11 @@ func main() {
 			return
 		}
 
-		fmt.Printf("str=%+v, tokenizer=%+v\n", str, tokenizer)
+		logger.Sugar().Infow("Received request",
+			"str", str[0],
+			"tokenizer", tokenizer[0],
+		)
+
 		processor, err := dissect.New(tokenizer[0])
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusBadRequest)
@@ -50,6 +57,8 @@ func main() {
 		w.Write(payload)
 	})
 
-	println("server is running on : http://localhost:8080")
+	logger.Sugar().Infow("Server is running",
+		"port", 8080,
+	)
 	http.ListenAndServe(":8080", nil)
 }
