@@ -13965,8 +13965,6 @@ video {
   transition-duration: 1000ms;
 }
 
-@import url("../../node_modules/prismjs/themes/prism.css");
-
 @media (min-width: 640px) {
   .sm\:sr-only {
     position: absolute;
