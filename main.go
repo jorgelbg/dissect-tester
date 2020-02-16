@@ -24,12 +24,12 @@ func main() {
 	http.HandleFunc("/api/", func(w http.ResponseWriter, r *http.Request) {
 		str, ok := r.URL.Query()["str"]
 		if !ok || len(str[0]) == 0 {
-			http.Error(w, "str query parameter not found", http.StatusBadRequest)
+			http.Error(w, "samples parameter not found", http.StatusBadRequest)
 		}
 
 		tokenizer, ok := r.URL.Query()["tokenizer"]
 		if !ok || len(tokenizer[0]) < 1 {
-			http.Error(w, "tokenizer query parameter not found", http.StatusBadRequest)
+			http.Error(w, "pattern parameter not found", http.StatusBadRequest)
 			return
 		}
 
