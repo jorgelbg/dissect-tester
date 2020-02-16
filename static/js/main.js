@@ -1,9 +1,11 @@
+const API_URL = window.location.href + "api/";
+
 function testSamples() {
   let pattern = document.querySelector("#pattern").value;
   let samples = document.querySelector("#samples").value;
   let resultTextArea = document.querySelector("#results");
 
-  let url = new URL("http://localhost:8080/api/");
+  let url = new URL(API_URL);
   let params = {
     tokenizer: pattern,
     str: samples
