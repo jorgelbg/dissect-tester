@@ -11,9 +11,9 @@
     <link href="/static/dist/tailwind.css" rel="stylesheet" />
     <script src="/static/js/main.js"></script>
   </head>
-  <body class="flex flex-col min-h-screen">
+  <body class="flex flex-col min-h-screen p-4 sm:p-0">
     <div class="container mx-auto mt-8">
-      <h1 class="text-2xl mb-4">
+      <h1 class="text-2xl mb-4 font-medium">
         Test
         <a
           href="https://www.elastic.co/guide/en/beats/filebeat/master/dissect.html"
@@ -23,10 +23,39 @@
         Patterns
       </h1>
 
-      <p>
-        This tries to parse a set of given logfile lines with a given dissect
-        expression and prints the matches for named patterns for each log line.
-      </p>
+      <div class="flex">
+        <svg class="mr-2 w-24 sm:w-12" viewBox="0 0 512 512">
+          <circle cx="256" cy="256" r="246" fill="#ff8c8c" />
+          <circle cx="256" cy="256" r="192" fill="#fff" />
+          <g fill="#7d9bff">
+            <path
+              d="M291
+          336h-15V236c0-11-9-20-20-20h-28a20 20 0 100 40h8v80h-15a20 20 0 100 40h70a20 20 0 100-40z"
+            />
+            <circle cx="256" cy="156.1" r="20" />
+          </g>
+          <path
+            d="M256 512A254 254 0 010 256 254 254 0 01256 0a254 254 0
+          01256 256 254 254 0 01-256 256zm0-492a236 236 0 101 473 236 236 0 00-1-473z"
+          />
+          <path
+            d="M256 458c-37
+          0-74-10-106-30a10 10 0 1110-17 182 182 0 10-60-61 10 10 0 01-17 10 203 203 0 0130-247 202 202 0
+          11143 345z"
+          />
+          <path
+            d="M120 402a10 10 0 117-17 10 10 0 01-7 17zM291 386h-70a30 30 0 010-60h5v-60a30
+          30 0 012-60h28c17 0 30 14 30 30v90h5a30 30 0 010 60zm-70-40a10 10 0 000 20h70a10 10 0 000-20h-15c-6
+          0-10-5-10-10V236c0-5-4-10-10-10h-28a10 10 0 000 20h8c6 0 10 5 10 10v80c0 5-4 10-10 10h-15zM256
+          186a30 30 0 110-60 30 30 0 010 60zm0-40a10 10 0 100 20 10 10 0 000-20z"
+          />
+        </svg>
+        <p class="md:w-1/2 sm:w-full">
+          This tries to parse a set of logfile lines with a given dissect
+          expression and prints the matches for named patterns for each log
+          line.
+        </p>
+      </div>
     </div>
 
     <div class="container mx-auto mt-8 flex-grow">
