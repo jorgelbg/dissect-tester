@@ -12,18 +12,24 @@
     <script src="/static/js/main.js"></script>
   </head>
   <body class="flex flex-col min-h-screen">
-    <div class="container mx-auto mt-16">
-      Test
-      <a
-        href="https://www.elastic.co/guide/en/beats/filebeat/master/dissect.html"
-        class="text-blue-600 visited:text-purple-600"
-      >
-        dissect processor
-      </a>
-      patterns on a few sample lines.
+    <div class="container mx-auto mt-8">
+      <h1 class="text-2xl mb-4">
+        Test
+        <a
+          href="https://www.elastic.co/guide/en/beats/filebeat/master/dissect.html"
+          class="text-blue-600 visited:text-purple-600"
+          >Dissect</a
+        >
+        Patterns
+      </h1>
+
+      <p>
+        This tries to parse a set of given logfile lines with a given dissect
+        expression and prints the matches for named patterns for each log line.
+      </p>
     </div>
 
-    <div class="container mx-auto mt-16 flex-grow">
+    <div class="container mx-auto mt-8 flex-grow">
       <form class="w-full">
         <div class="md:flex md:items-center mb-6 flex-col">
           <label for="pattern" class="w-full text-lg pb-4">Pattern</label>
@@ -40,7 +46,7 @@
           >
         </div>
         <div class="md:flex md:items-center mb-8">
-          <div class="w-1/2 mr-2">
+          <div class="md:w-1/2s mr-2 sm:w-full sm:mt-4">
             <label for="pattern" class="w-full text-lg">
               Log Samples
             </label>
@@ -79,8 +85,8 @@
 a b</textarea
             >
           </div>
-          <div class="w-1/2 ml-2">
-            <label for="pattern" class="w-full text-lg">
+          <div class="md:w-1/2s ml-2 sm:w-full sm:mt-4">
+            <label for="results" class="w-full text-lg">
               Results
             </label>
             <div class="w-full text-sm text-gray-500 pb-4">
@@ -155,11 +161,9 @@ a b</textarea
         </div>
       </form>
     </div>
-    <footer class="bg-gray-100 p-8 text-center text-gray-600">
+    <footer class="bg-gray-100 p-8 text-center text-gray-600 mt-8">
       Built with 💖 by
-      <a class="text-purple-600" href="https://twitter.com/jorgelbg"
-        >Jorge Luis Betancourt</a
-      >
+      <span class="text-purple-600">Website performance</span>
     </footer>
   </body>
 </html>
