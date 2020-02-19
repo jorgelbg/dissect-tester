@@ -30,7 +30,7 @@ The terminal should print a message similar to
 
 Indicating the the server is running. Head your browser to http://localhost:8080/ and enjoy 🎉.
 
-Your browser should show the following image:
+Your browser should show the following:
 
 ![Screenshot](http://screen.jorgelbg.me/jorgelbg-dropshare/Screen-Shot-2020-02-19-5-43-11.30-PM.png)
 
