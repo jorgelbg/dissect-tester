@@ -20,13 +20,9 @@ func main() {
 		pattern = kingpin.Flag("pattern", "Tokenizer pattern to test the samples.").Required().Short('p').String()
 	)
 
-	kingpin.Parse()
 	kingpin.UsageTemplate(kingpin.CompactUsageTemplate).Version("0.1").Author("Jorge Luis Betancourt")
 	kingpin.CommandLine.Help = "Tool for testing a set of sample loglines against a dissect pattern."
-
-	if *pattern == "" {
-		os.Exit(1)
-	}
+	kingpin.Parse()
 
 	fmt.Printf("pattern = %+v\n", *pattern)
 	processor, err := dissect.New(*pattern)
