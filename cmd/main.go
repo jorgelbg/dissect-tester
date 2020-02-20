@@ -24,13 +24,13 @@ func main() {
 	kingpin.CommandLine.Help = "Tool for testing a set of sample loglines against a dissect pattern."
 	kingpin.Parse()
 
-	fmt.Printf("pattern = %+v\n", *pattern)
 	processor, err := dissect.New(*pattern)
 	if err != nil {
-		panic(err)
+		fmt.Printf("ERROR: Coudln't create the processor: %s", err.Error())
+		return
 	}
 
-	fmt.Println("🔎Enter a sample per line to evaluate against the pattern")
+	fmt.Println("Enter a sample per line to evaluate")
 	reader := bufio.NewReader(os.Stdin)
 	for {
 		sample, _ := reader.ReadString('\n')
@@ -42,7 +42,8 @@ func main() {
 
 		tokens, err := processor.Dissect(sample)
 		if err != nil {
-			panic(err)
+			fmt.Printf("ERROR: %s", err.Error())
+			continue
 		}
 
 		payload, err := json.Marshal(tokens)
