@@ -51,7 +51,7 @@ If you want to build a new Docker image use the following command:
 make docker
 ```
 
-## Contributing
+## 🤚🏻 Contributing
 
 If you'd like to contribute, please fork the repository and use a feature
 branch. Pull requests are warmly welcome.
