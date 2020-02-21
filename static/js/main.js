@@ -6,14 +6,17 @@ function testSamples() {
   let resultTextArea = document.querySelector("#results");
 
   let url = new URL(API_URL);
-  let params = {
-    tokenizer: pattern,
-    str: samples
-  };
 
-  Object.keys(params).forEach(k => url.searchParams.append(k, params[k]));
+  let body = new FormData();
+  body.append("tokenizer", encodeURIComponent(pattern));
+  body.append("str", encodeURIComponent(samples));
 
-  fetch(url)
+  fetch(url, {
+    method: "POST",
+    cache: "no-cache",
+    headers: { "Content-Encoding": "multipart/form-data" },
+    body: body
+  })
     .then(res => {
       if (res.ok) {
         return res.json();

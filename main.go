@@ -9,6 +9,7 @@ import (
 	"fmt"
 	"html/template"
 	"net/http"
+	"net/url"
 	"strings"
 
 	"github.com/elastic/beats/libbeat/processors/dissect"
@@ -26,26 +27,35 @@ func main() {
 	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
 
 	http.HandleFunc("/api/", func(w http.ResponseWriter, r *http.Request) {
-		str, ok := r.URL.Query()["str"]
-		if !ok || len(str[0]) == 0 {
-			http.Error(w, "samples parameter not found", http.StatusBadRequest)
+		err := r.ParseMultipartForm(1024 * 1024 * 16)
+		if err != nil {
+			http.Error(w, fmt.Sprintf("Couldn't parse POST request: %s", err.Error()),
+				http.StatusBadRequest)
+			return
 		}
 
-		tokenizer, ok := r.URL.Query()["tokenizer"]
-		if !ok || len(tokenizer[0]) < 1 {
+		str, _ := url.QueryUnescape(r.Form.Get("str"))
+		if len(str) == 0 {
+			http.Error(w, "samples parameter not found", http.StatusBadRequest)
+			return
+		}
+
+		tokenizer, _ := url.QueryUnescape(r.Form.Get("tokenizer"))
+		if len(tokenizer) == 0 {
 			http.Error(w, "pattern parameter not found", http.StatusBadRequest)
 			return
 		}
 
 		logger.Sugar().Infow("Received request",
-			"str", str[0],
-			"tokenizer", tokenizer[0],
+			"str", str,
+			"tokenizer", tokenizer,
 		)
 
-		samples := strings.Split(str[0], "\n")
+		samples := strings.Split(str, "\n")
+
 		tokenized := make([]map[string]string, 0)
 		for i, s := range samples {
-			processor, err := dissect.New(tokenizer[0])
+			processor, err := dissect.New(tokenizer)
 			if err != nil {
 				http.Error(w, err.Error(), http.StatusBadRequest)
 				return
@@ -63,6 +73,7 @@ func main() {
 		payload, err := json.Marshal(tokenized)
 		if err != nil {
 			http.Error(w, "couldn't encode response", http.StatusNoContent)
+			return
 		}
 
 		w.Header().Set("Content-Type", "application/json")
@@ -72,5 +83,6 @@ func main() {
 	logger.Sugar().Infow("Server is running",
 		"port", 8080,
 	)
+
 	http.ListenAndServe(":8080", nil)
 }
