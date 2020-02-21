@@ -1,1 +1,30 @@
-<?xml version="1.0" encoding="UTF-8"?><svg width="842" height="842"><g fill="none" fill-rule="evenodd"><path d="M78 842h405v-31H78c-26 0-47-21-47-47V78c0-26 21-47 47-47h686c25 0 46 21 46 47v358h32V78c0-43-35-78-78-78H78C35 0 0 35 0 78v686c0 43 35 78 78 78z" fill="#2D3748" fill-rule="nonzero"/><path fill="#2D3748" fill-rule="nonzero" d="M62 125h717v14H62z"/><path fill="#718096" fill-rule="nonzero" d="M96 202h621v31H96z"/><path fill="#F4AB45" fill-rule="nonzero" d="M265 265h109v31H265z"/><path fill="#00BFB3" fill-rule="nonzero" d="M405 265h218v31H405z"/><path fill="#718096" fill-rule="nonzero" d="M99 389h265v31H99z"/><path fill="#00BFB3" fill-rule="nonzero" d="M99 451h109v31H99z"/><path fill="#F4AB45" fill-rule="nonzero" d="M239 451h125v31H239z"/><path fill="#BF69A6" fill-rule="nonzero" d="M395 389h63v31h-63zM99 265h135v31H99z"/><path fill="#718096" fill-rule="nonzero" d="M99 576h345v31H99z"/><path fill="#00BFB3" fill-rule="nonzero" d="M99 638h109v31H99z"/><path fill="#BF69A6" fill-rule="nonzero" d="M239 638h62v31h-62z"/><path fill="#7F9CF5" fill-rule="nonzero" d="M332 638h112v31H332zM395 452h112v31H395z"/><path d="M732 935a234 234 0 100-467 234 234 0 000 467zm0-436a203 203 0 110 405 203 203 0 010-405z" fill="#68D391" fill-rule="nonzero"/><path d="M637 710l-27 14 31 62a16 16 0 0025 4l187-187-22-22-172 172-22-43z" fill="#68D391" fill-rule="nonzero"/><ellipse fill="#2D3748" cx="209" cy="74" rx="17" ry="18"/><ellipse fill="#2D3748" cx="79" cy="76" rx="17" ry="18"/><ellipse fill="#2D3748" cx="144" cy="74" rx="17" ry="18"/></g></svg>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="842px" height="842px" viewBox="0 0 842 842" version="1.1" 
+    xmlns="http://www.w3.org/2000/svg" 
+    xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 63 (92445) - https://sketch.com -->
+    <title>Path</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <path d="M77.921875,841.703125 L483.125,841.703125 L483.125,810.527344 L77.921875,810.527344 C52.101562,810.527344 31.167969,789.59375 31.167969,763.773438 L31.167969,78.046875 C31.167969,52.21875 52.101562,31.292969 77.921875,31.292969 L763.648438,31.292969 C789.480469,31.292969 810.402344,52.21875 810.402344,78.046875 L810.402344,436.492188 L841.578125,436.492188 L841.578125,78.046875 C841.527344,35.03125 806.667969,0.175781 763.648438,0.125 L77.921875,0.125 C34.914062,0.175781 0.0546875,35.03125 0,78.046875 L0,763.773438 C0.0546875,806.789062 34.914062,841.644531 77.921875,841.703125 Z" id="Path" fill="#2D3748" fill-rule="nonzero"></path>
+        <polygon id="Path" fill="#2D3748" fill-rule="nonzero" points="62.34375 124.800781 779.234375 124.800781 779.234375 138.800781 62.34375 138.800781"></polygon>
+        <polygon id="Path" fill="#718096" fill-rule="nonzero" points="96 202 717 202 717 233 96 233"></polygon>
+        <polygon id="Path" fill="#F4AB45" fill-rule="nonzero" points="265.058594 264.515625 374.148438 264.515625 374.148438 295.515625 265.058594 295.515625"></polygon>
+        <polygon id="Path" fill="#00BFB3" fill-rule="nonzero" points="405.058594 264.515625 623.238281 264.515625 623.238281 295.515625 405.058594 295.515625"></polygon>
+        <polygon id="Path" fill="#718096" fill-rule="nonzero" points="99.058594 388.515625 363.992188 388.515625 363.992188 419.515625 99.058594 419.515625"></polygon>
+        <polygon id="Path" fill="#00BFB3" fill-rule="nonzero" points="99.058594 450.859375 208.148438 450.859375 208.148438 481.859375 99.058594 481.859375"></polygon>
+        <polygon id="Path" fill="#F4AB45" fill-rule="nonzero" points="239.320313 450.859375 363.992188 450.859375 363.992188 481.859375 239.320313 481.859375"></polygon>
+        <polygon id="Path" fill="#BF69A6" fill-rule="nonzero" points="395.164063 388.515625 457.5 388.515625 457.5 419.515625 395.164063 419.515625"></polygon>
+        <polygon id="Path-Copy" fill="#BF69A6" fill-rule="nonzero" points="99.058594 264.515625 234.058594 264.515625 234.058594 295.515625 99.058594 295.515625"></polygon>
+        <polygon id="Path" fill="#718096" fill-rule="nonzero" points="99.058594 575.535156 444.058594 575.535156 444.058594 606.535156 99.058594 606.535156"></polygon>
+        <polygon id="Path" fill="#00BFB3" fill-rule="nonzero" points="99.058594 637.874999 208.148438 637.874999 208.148438 668.874999 99.058594 668.874999"></polygon>
+        <polygon id="Path" fill="#BF69A6" fill-rule="nonzero" points="239.058594 637.515625 301.394531 637.515625 301.394531 668.515625 239.058594 668.515625"></polygon>
+        <polygon id="Path-Copy-2" fill="#7F9CF5" fill-rule="nonzero" points="332.058594 637.515625 444.058594 637.515625 444.058594 668.515625 332.058594 668.515625"></polygon>
+        <polygon id="Path-Copy-3" fill="#7F9CF5" fill-rule="nonzero" points="395 452 507 452 507 483 395 483"></polygon>
+        <path d="M732.484375,935.210938 C861.597656,935.210938 966.25,830.539062 966.25,701.4375 C966.25,572.324219 861.597656,467.664062 732.484375,467.664062 C603.371094,467.664062 498.710938,572.324219 498.710938,701.4375 C498.863281,830.480469 603.433594,935.054688 732.484375,935.210938 Z M732.484375,498.835938 C844.371094,498.835938 935.085938,589.542969 935.085938,701.4375 C935.085938,813.332031 844.371094,904.035156 732.484375,904.035156 C620.585938,904.035156 529.875,813.332031 529.875,701.4375 C530.007812,589.597656 620.636719,498.960938 732.484375,498.835938 Z" id="Shape" fill="#68D391" fill-rule="nonzero"></path>
+        <path d="M637.417969,710.050781 L609.519531,723.980469 L640.691406,786.320312 C642.925781,790.804688 647.191406,793.941406 652.140625,794.742188 C652.945312,794.867188 653.75,794.933594 654.558594,794.945312 C658.6875,794.945312 662.652344,793.300781 665.582031,790.378906 L852.589844,603.363281 L830.558594,581.324219 L658.824219,753.050781 L637.417969,710.050781 Z" id="Path" fill="#68D391" fill-rule="nonzero"></path>
+        <ellipse id="Oval" fill="#2D3748" cx="209" cy="74" rx="17" ry="18"></ellipse>
+        <ellipse id="Oval-Copy" fill="#2D3748" cx="79" cy="76" rx="17" ry="18"></ellipse>
+        <ellipse id="Oval-Copy-2" fill="#2D3748" cx="144" cy="74" rx="17" ry="18"></ellipse>
+    </g>
+</svg>
