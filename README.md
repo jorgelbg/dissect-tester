@@ -3,7 +3,7 @@
 ![Filebeat](https://img.shields.io/badge/Beats-7.6.x-blueviolet?style=flat&logo=beats&color=00BFB3)
 ![Docker pulls](https://badgen.net/docker/pulls/jorgelbg/dissect-tester?icon=docker&color=purple)
 
-![](static/logo.svg)
+![project logo](static/logo.svg | width=100)
 
 This project presents a simple web UI to test a collection of log line samples against a pattern
 supported by the [Filebeat dissect processor](https://www.elastic.co/guide/en/beats/filebeat/master/dissect.html).
