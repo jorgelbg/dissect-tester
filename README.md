@@ -15,9 +15,6 @@ supported by the [Filebeat dissect processor](https://www.elastic.co/guide/en/be
 > have a similar filter/processor that uses the same configuration pattern. Therefore, this UI can be
 > used to test a pattern that will be used in either Logstash or Elasticsearch pipelines.
 
-A brief description of your project, what it is used for and how does life get
-awesome when someone starts to use it.
-
 ## 🎮 Installing / Getting started
 
 🔗 If you only want to test some samples you can go directly to the demo instance running in http://dissect-tester.jorgelbg.me/.
