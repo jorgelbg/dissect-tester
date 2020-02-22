@@ -16,6 +16,9 @@ import (
 	"go.uber.org/zap"
 )
 
+// maxPostMemory memory limit for parsing the POST HTTP request
+const maxPostMemory = 16 * 1024 * 1024
+
 func main() {
 	logger, _ := zap.NewProduction()
 	defer logger.Sync()
@@ -24,10 +27,11 @@ func main() {
 		tmpl := template.Must(template.ParseFiles("templates/index.html"))
 		tmpl.Execute(w, nil)
 	})
+
 	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
 
 	http.HandleFunc("/api/", func(w http.ResponseWriter, r *http.Request) {
-		err := r.ParseMultipartForm(1024 * 1024 * 16)
+		err := r.ParseMultipartForm(maxPostMemory)
 		if err != nil {
 			http.Error(w, fmt.Sprintf("Couldn't parse POST request: %s", err.Error()),
 				http.StatusBadRequest)
@@ -52,8 +56,7 @@ func main() {
 		)
 
 		samples := strings.Split(str, "\n")
-
-		tokenized := make([]map[string]string, 0)
+		tokenized := make([]map[string]string, len(samples))
 		for i, s := range samples {
 			processor, err := dissect.New(tokenizer)
 			if err != nil {
