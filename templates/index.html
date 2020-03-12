@@ -7,7 +7,20 @@
       content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
     />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Filebeat Dissect Pattern Tester</title>
+    <meta
+      name="description"
+      content="This app tries to parse a set of logfile samples with a given dissect
+    tokenization pattern and return the matched fields for each log line. Compatible with
+    Elasticsearch, Filebeat and Logstash."
+    />
+    <meta
+      name="keywords"
+      content="tokenizer, pattern, filebeat, logstash, elasticsearch, tester, matcher"
+    />
+    <title>
+      Dissect Pattern Tester and Matcher for Filebeat, Elasticsearch and
+      Logstash
+    </title>
     <link href="/static/dist/tailwind.css" rel="stylesheet" />
     <script src="/static/js/main.js"></script>
   </head>
@@ -19,9 +32,9 @@
           href="https://www.elastic.co/guide/en/beats/filebeat/master/dissect.html"
           target="_blank"
           class="text-blue-600 visited:text-purple-600"
-          >Dissect</a
+          >Tokenizer Patterns</a
         >
-        Patterns
+        for the Dissect filter
       </h1>
 
       <div class="flex">
@@ -51,10 +64,30 @@
           186a30 30 0 110-60 30 30 0 010 60zm0-40a10 10 0 100 20 10 10 0 000-20z"
           />
         </svg>
-        <p class="md:w-1/2 sm:w-full">
+        <p class="md:w-1/2 sm:w-full text-gray-800">
           This app tries to parse a set of logfile samples with a given dissect
-          pattern and prints the matches (fields) for each log line.
+          tokenization pattern and return the matched fields for each log line.
         </p>
+        <h3 class="text-gray-800">
+          Syntax compatible with
+          <a
+            class="text-blue-600"
+            href="https://www.elastic.co/guide/en/beats/filebeat/master/dissect.html"
+            >Filebeat</a
+          >,
+          <a
+            class="text-blue-600"
+            href="https://www.elastic.co/guide/en/elasticsearch/reference/master/dissect-processor.html"
+            >Elasticsearch</a
+          >
+          and
+          <a
+            class="text-blue-600"
+            href="https://www.elastic.co/guide/en/logstash/current/plugins-filters-dissect.html"
+            >Logstash</a
+          >
+          processors/filters.
+        </h3>
       </div>
     </div>
 

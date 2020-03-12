@@ -56,7 +56,7 @@ func main() {
 		)
 
 		samples := strings.Split(str, "\n")
-		tokenized := make([]map[string]string, len(samples))
+		tokenized := make([]map[string]string, 0)
 		for i, s := range samples {
 			processor, err := dissect.New(tokenizer)
 			if err != nil {
