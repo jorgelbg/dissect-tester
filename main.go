@@ -11,6 +11,7 @@ import (
 	"net/http"
 	"net/url"
 	"strings"
+	"time"
 
 	"github.com/elastic/beats/libbeat/processors/dissect"
 	"go.uber.org/zap"
@@ -19,18 +20,31 @@ import (
 // maxPostMemory memory limit for parsing the POST HTTP request
 const maxPostMemory = 16 * 1024 * 1024
 
+const (
+	readTimeout  = 5 * time.Second
+	writeTimeout = 5 * time.Second
+)
+
+// A list of HTTP endpoints to register
+const (
+	StaticPath = "/static/"
+	APIPath    = "/api/"
+)
+
 func main() {
 	logger, _ := zap.NewProduction()
 	defer logger.Sync()
 
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+	mux := http.NewServeMux()
+
+	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		tmpl := template.Must(template.ParseFiles("templates/index.html"))
 		tmpl.Execute(w, nil)
 	})
 
-	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
+	mux.Handle(StaticPath, http.StripPrefix(StaticPath, http.FileServer(http.Dir("static"))))
 
-	http.HandleFunc("/api/", func(w http.ResponseWriter, r *http.Request) {
+	mux.HandleFunc(APIPath, func(w http.ResponseWriter, r *http.Request) {
 		err := r.ParseMultipartForm(maxPostMemory)
 		if err != nil {
 			http.Error(w, fmt.Sprintf("Couldn't parse POST request: %s", err.Error()),
@@ -83,9 +97,18 @@ func main() {
 		w.Write(payload)
 	})
 
+	RegisterDebugHandler(mux)
+
+	server := http.Server{
+		Handler:      mux,
+		ReadTimeout:  readTimeout,
+		WriteTimeout: writeTimeout,
+	}
+	server.Addr = ":8080"
+
 	logger.Sugar().Infow("Server is running",
 		"port", 8080,
 	)
 
-	http.ListenAndServe(":8080", nil)
+	server.ListenAndServe()
 }
