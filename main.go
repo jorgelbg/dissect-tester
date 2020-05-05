@@ -14,7 +14,7 @@ import (
 	"time"
 
 	"github.com/elastic/beats/libbeat/processors/dissect"
-	_ "go.uber.org/automaxprocs"
+	"go.uber.org/automaxprocs/maxprocs"
 	"go.uber.org/zap"
 )
 
@@ -35,6 +35,16 @@ const (
 func main() {
 	logger, _ := zap.NewProduction()
 	defer logger.Sync()
+
+	_, err := maxprocs.Set(maxprocs.Logger(
+		func(logMessage string, args ...interface{}) {
+			logger.Sugar().Info(fmt.Sprintf(logMessage, args...))
+		},
+	))
+
+	if err != nil {
+		logger.Error("Failed to set maxprocs: %v", zap.Error(err))
+	}
 
 	mux := http.NewServeMux()
 
