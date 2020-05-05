@@ -14,6 +14,7 @@ import (
 	"time"
 
 	"github.com/elastic/beats/libbeat/processors/dissect"
+	_ "go.uber.org/automaxprocs"
 	"go.uber.org/zap"
 )
 
