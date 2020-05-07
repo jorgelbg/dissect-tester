@@ -16,6 +16,7 @@ import (
 	"github.com/elastic/beats/libbeat/processors/dissect"
 	"go.uber.org/automaxprocs/maxprocs"
 	"go.uber.org/zap"
+	"go.uber.org/zap/zapcore"
 )
 
 // maxPostMemory memory limit for parsing the POST HTTP request
@@ -33,7 +34,10 @@ const (
 )
 
 func main() {
-	logger, _ := zap.NewProduction()
+	config := zap.NewProductionConfig()
+	config.EncoderConfig.TimeKey = "timestamp"
+	config.EncoderConfig.EncodeTime = zapcore.ISO8601TimeEncoder
+	logger, _ := config.Build()
 	defer logger.Sync()
 
 	_, err := maxprocs.Set(maxprocs.Logger(
