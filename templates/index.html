@@ -92,20 +92,16 @@
     </div>
 
     <div class="container mx-auto mt-8 flex-grow">
-      <form class="w-full">
+      <form class="w-full" onsubmit="return false;">
         <div class="md:flex md:items-center mb-6 flex-col">
           <label for="pattern" class="w-full text-lg pb-4">Pattern</label>
-          <textarea
-            class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4
-          text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 font-mono"
+          <input
+            class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 font-mono h-16"
             id="pattern"
             type="text"
-            value="Jane Doe"
+            value="%{key1} %{key2}"
             placeholder="Pattern to be tested against the log samples"
-            rows="5"
-          >
-%{key1} %{key2}</textarea
-          >
+          />
         </div>
         <div class="md:flex md:items-center mb-8">
           <div class="md:w-1/2s mr-2 sm:w-full sm:mt-4">
@@ -138,9 +134,7 @@
               One sample per line
             </div>
             <textarea
-              class="bg-gray-200 appearance-none border-2 border-gray-200 rounded py-2 px-4
-          text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500
-          font-mono w-full"
+              class="bg-gray-200 appearance-none border-2 border-gray-200 rounded py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 font-mono w-full"
               id="samples"
               rows="20"
             >
@@ -177,9 +171,7 @@ a b</textarea
               One result per block
             </div>
             <textarea
-              class="bg-gray-200 appearance-none border-2 border-gray-200 rounded py-2 px-4
-        text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500
-        font-mono w-full"
+              class="bg-gray-200 appearance-none border-2 border-gray-200 rounded py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 font-mono w-full"
               id="results"
               rows="20"
               placeholder="Output of the dissect tokenizer"
@@ -190,8 +182,7 @@ a b</textarea
         <div class="md:flex">
           <div class="w-1/2">
             <button
-              class="shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none
-            text-white font-bold py-2 px-4 rounded w-full flex items-center h-12 justify-center"
+              class="shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded w-full flex items-center h-12 justify-center"
               type="button"
               onclick="testSamples()"
             >

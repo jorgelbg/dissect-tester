@@ -25,6 +25,7 @@ const maxPostMemory = 16 * 1024 * 1024
 const (
 	readTimeout  = 5 * time.Second
 	writeTimeout = 5 * time.Second
+	procTimeout  = 3 * time.Second
 )
 
 // A list of HTTP endpoints to register
@@ -115,7 +116,7 @@ func main() {
 	RegisterDebugHandler(mux)
 
 	server := http.Server{
-		Handler:      mux,
+		Handler:      http.TimeoutHandler(mux, procTimeout, "Processing your request took too long!"),
 		ReadTimeout:  readTimeout,
 		WriteTimeout: writeTimeout,
 	}
