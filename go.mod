@@ -17,6 +17,7 @@ require (
 	github.com/gofrs/uuid v3.3.0+incompatible // indirect
 	github.com/rcrowley/go-metrics v0.0.0-20200313005456-10cdbea86bc0 // indirect
 	github.com/spf13/cobra v1.0.0 // indirect
+	github.com/stretchr/testify v1.4.0
 	go.uber.org/automaxprocs v1.3.0
 	go.uber.org/zap v1.15.0
 	gopkg.in/alecthomas/kingpin.v2 v2.2.6
