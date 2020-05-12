@@ -92,7 +92,11 @@ fmt: ; $(info $(M) running gofmt…) @ ## Run gofmt on all source files
 
 .PHONY: docker
 docker: ; $(info $(M) building docker image…) @ ## Build docker image
-	@docker build -t $(IMAGE) .
+	docker build --build-arg MOD=readonly -t $(IMAGE) .
+
+.PHONY: docker-local
+docker-local: ; $(info $(M) building docker image using the local vendor directory…) @ ## Build docker image
+	docker build --build-arg MOD=vendor -t $(IMAGE) .
 
 .PHONY: docker-push
 docker-push: ; $(info $(M) pushing docker image…) @ ## Push docker image

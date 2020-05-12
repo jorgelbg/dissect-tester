@@ -1,8 +1,11 @@
 FROM golang:latest as builder
+ARG MOD
+ENV MOD ${MOD:-readonly}
 RUN mkdir /build
 ADD . /build/
 WORKDIR /build
-RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -ldflags '-extldflags "-static"' -o main .
+RUN echo "go mod flag: $MOD"
+RUN CGO_ENABLED=0 GOOS=linux go build -mod=$MOD -a -installsuffix cgo -ldflags '-extldflags "-static"' -o main .
 
 FROM alpine
 WORKDIR /app
