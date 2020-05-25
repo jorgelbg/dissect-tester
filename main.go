@@ -40,7 +40,7 @@ func main() {
 	config.EncoderConfig.TimeKey = "timestamp"
 	config.EncoderConfig.EncodeTime = zapcore.ISO8601TimeEncoder
 	logger, _ := config.Build()
-	defer logger.Sync()
+	defer logger.Sync() // nolint: errcheck
 
 	_, err := maxprocs.Set(maxprocs.Logger(
 		func(logMessage string, args ...interface{}) {
@@ -56,7 +56,12 @@ func main() {
 
 	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		tmpl := template.Must(template.ParseFiles("templates/index.html"))
-		tmpl.Execute(w, nil)
+		if err := tmpl.Execute(w, nil); err != nil {
+			logger.Error("Could not parse template.",
+				zap.String("template", "templates/index.html"),
+				zap.Error(err),
+			)
+		}
 	})
 
 	mux.Handle(StaticPath, http.StripPrefix(StaticPath, http.FileServer(http.Dir("static"))))
@@ -111,7 +116,7 @@ func main() {
 		}
 
 		w.Header().Set("Content-Type", "application/json")
-		w.Write(payload)
+		w.Write(payload) // nolint: errcheck
 	})
 
 	RegisterDebugHandler(mux)
@@ -127,5 +132,9 @@ func main() {
 		"port", 8080,
 	)
 
-	server.ListenAndServe()
+	if err := server.ListenAndServe(); err != nil {
+		logger.Error("Could not start HTTP server.",
+			zap.Error(err),
+		)
+	}
 }
