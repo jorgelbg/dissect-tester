@@ -42,7 +42,6 @@ jobs:
     # needs: test
     if: "!contains(github.event.head_commit.message, 'skip ci')"
     runs-on: ubuntu-latest
-    if: github.event_name == 'push'
 
     steps:
       - uses: actions/checkout@v2
