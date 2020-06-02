@@ -1,6 +1,7 @@
-const API_URL = window.location.href + "api/";
+const API_URL = window.location.href.split("?")[0] + "api/";
 
-function testSamples() {
+function testSamples(e) {
+  e.preventDefault();
   let pattern = document.querySelector("#pattern").value;
   let samples = document.querySelector("#samples").value;
   let resultTextArea = document.querySelector("#results");
@@ -15,18 +16,18 @@ function testSamples() {
     method: "POST",
     cache: "no-cache",
     headers: { "Content-Encoding": "multipart/form-data" },
-    body: body
+    body: body,
   })
-    .then(res => {
+    .then((res) => {
       if (res.ok) {
         return res.json();
       }
 
       return res.text();
     })
-    .then(payload => {
+    .then((payload) => {
       if (Array.isArray(payload)) {
-        let str = payload.map(s => JSON.stringify(s, null, 2));
+        let str = payload.map((s) => JSON.stringify(s, null, 2));
         resultTextArea.value = str.join("\n");
         resultTextArea.focus();
 

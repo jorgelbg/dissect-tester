@@ -92,7 +92,7 @@
     </div>
 
     <div class="container mx-auto mt-8 flex-grow">
-      <form class="w-full" onsubmit="testSamples()">
+      <form class="w-full" onsubmit="testSamples(event); return false;">
         <div class="md:flex md:items-center mb-6 flex-col">
           <label for="pattern" class="w-full text-lg pb-4">Pattern</label>
           <input
