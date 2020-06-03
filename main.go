@@ -35,11 +35,75 @@ const (
 	APIPath    = "/api/"
 )
 
+func indexHandler(w http.ResponseWriter, r *http.Request) {
+	tmpl := template.Must(template.ParseFiles("templates/index.html"))
+	if err := tmpl.Execute(w, nil); err != nil {
+		zap.L().Error("Could not parse template.",
+			zap.String("template", "templates/index.html"),
+			zap.Error(err),
+		)
+	}
+}
+
+func apiHandler(w http.ResponseWriter, r *http.Request) {
+	err := r.ParseMultipartForm(maxPostMemory)
+	if err != nil {
+		http.Error(w, fmt.Sprintf("Couldn't parse POST request: %s", err.Error()),
+			http.StatusBadRequest)
+		return
+	}
+
+	str, _ := url.QueryUnescape(r.Form.Get("str"))
+	if len(str) == 0 {
+		http.Error(w, "samples parameter not found", http.StatusBadRequest)
+		return
+	}
+
+	tokenizer, _ := url.QueryUnescape(r.Form.Get("tokenizer"))
+	if len(tokenizer) == 0 {
+		http.Error(w, "pattern parameter not found", http.StatusBadRequest)
+		return
+	}
+
+	zap.L().Sugar().Infow("Received request",
+		"str", str,
+		"tokenizer", tokenizer,
+	)
+
+	samples := strings.Split(str, "\n")
+	tokenized := make([]map[string]string, 0)
+	for i, s := range samples {
+		processor, err := dissect.New(tokenizer)
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusBadRequest)
+			return
+		}
+
+		m, err := processor.Dissect(s)
+		if err != nil {
+			http.Error(w, fmt.Sprintf("sample: %d, error: %s", i, err), http.StatusBadRequest)
+			return
+		}
+
+		tokenized = append(tokenized, m)
+	}
+
+	payload, err := json.Marshal(tokenized)
+	if err != nil {
+		http.Error(w, "couldn't encode response", http.StatusNoContent)
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	w.Write(payload) // nolint: errcheck
+}
+
 func main() {
 	config := zap.NewProductionConfig()
 	config.EncoderConfig.TimeKey = "timestamp"
 	config.EncoderConfig.EncodeTime = zapcore.ISO8601TimeEncoder
 	logger, _ := config.Build()
+	zap.ReplaceGlobals(logger)
 	defer logger.Sync() // nolint: errcheck
 
 	_, err := maxprocs.Set(maxprocs.Logger(
@@ -54,72 +118,13 @@ func main() {
 
 	mux := http.NewServeMux()
 
-	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		tmpl := template.Must(template.ParseFiles("templates/index.html"))
-		if err := tmpl.Execute(w, nil); err != nil {
-			logger.Error("Could not parse template.",
-				zap.String("template", "templates/index.html"),
-				zap.Error(err),
-			)
-		}
-	})
-
-	mux.Handle(StaticPath, http.StripPrefix(StaticPath, http.FileServer(http.Dir("static"))))
-
-	mux.HandleFunc(APIPath, func(w http.ResponseWriter, r *http.Request) {
-		err := r.ParseMultipartForm(maxPostMemory)
-		if err != nil {
-			http.Error(w, fmt.Sprintf("Couldn't parse POST request: %s", err.Error()),
-				http.StatusBadRequest)
-			return
-		}
-
-		str, _ := url.QueryUnescape(r.Form.Get("str"))
-		if len(str) == 0 {
-			http.Error(w, "samples parameter not found", http.StatusBadRequest)
-			return
-		}
-
-		tokenizer, _ := url.QueryUnescape(r.Form.Get("tokenizer"))
-		if len(tokenizer) == 0 {
-			http.Error(w, "pattern parameter not found", http.StatusBadRequest)
-			return
-		}
-
-		logger.Sugar().Infow("Received request",
-			"str", str,
-			"tokenizer", tokenizer,
-		)
-
-		samples := strings.Split(str, "\n")
-		tokenized := make([]map[string]string, 0)
-		for i, s := range samples {
-			processor, err := dissect.New(tokenizer)
-			if err != nil {
-				http.Error(w, err.Error(), http.StatusBadRequest)
-				return
-			}
-
-			m, err := processor.Dissect(s)
-			if err != nil {
-				http.Error(w, fmt.Sprintf("sample: %d, error: %s", i, err), http.StatusBadRequest)
-				return
-			}
-
-			tokenized = append(tokenized, m)
-		}
-
-		payload, err := json.Marshal(tokenized)
-		if err != nil {
-			http.Error(w, "couldn't encode response", http.StatusNoContent)
-			return
-		}
-
-		w.Header().Set("Content-Type", "application/json")
-		w.Write(payload) // nolint: errcheck
-	})
-
 	RegisterDebugHandler(mux)
+	mux.Handle(StaticPath,
+		http.StripPrefix(StaticPath, http.FileServer(http.Dir("static"))),
+	)
+
+	mux.HandleFunc("/", indexHandler)
+	mux.HandleFunc(APIPath, apiHandler)
 
 	server := http.Server{
 		Handler:      http.TimeoutHandler(mux, procTimeout, "Processing your request took too long!"),

@@ -1,7 +1,6 @@
 const API_URL = window.location.href.split("?")[0] + "api/";
 
-function testSamples(e) {
-  e.preventDefault();
+function testSamples() {
   let pattern = document.querySelector("#pattern").value;
   let samples = document.querySelector("#samples").value;
   let resultTextArea = document.querySelector("#results");
