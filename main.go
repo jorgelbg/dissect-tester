@@ -102,11 +102,16 @@ func main() {
 	config := zap.NewProductionConfig()
 	config.EncoderConfig.TimeKey = "timestamp"
 	config.EncoderConfig.EncodeTime = zapcore.ISO8601TimeEncoder
-	logger, _ := config.Build()
+
+	logger, err := config.Build()
+	if err != nil {
+		panic("Couldn't configure the logger. Aborting!")
+	}
+
 	zap.ReplaceGlobals(logger)
 	defer logger.Sync() // nolint: errcheck
 
-	_, err := maxprocs.Set(maxprocs.Logger(
+	_, err = maxprocs.Set(maxprocs.Logger(
 		func(logMessage string, args ...interface{}) {
 			logger.Sugar().Info(fmt.Sprintf(logMessage, args...))
 		},
