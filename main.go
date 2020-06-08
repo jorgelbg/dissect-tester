@@ -53,14 +53,14 @@ func apiHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	str, _ := url.QueryUnescape(r.Form.Get("str"))
-	if len(str) == 0 {
+	str, err := url.QueryUnescape(r.Form.Get("str"))
+	if len(str) == 0 || err != nil {
 		http.Error(w, "samples parameter not found", http.StatusBadRequest)
 		return
 	}
 
-	tokenizer, _ := url.QueryUnescape(r.Form.Get("tokenizer"))
-	if len(tokenizer) == 0 {
+	tokenizer, err := url.QueryUnescape(r.Form.Get("tokenizer"))
+	if len(tokenizer) == 0 || err != nil {
 		http.Error(w, "pattern parameter not found", http.StatusBadRequest)
 		return
 	}
