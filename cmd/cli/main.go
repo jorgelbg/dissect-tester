@@ -47,7 +47,10 @@ func main() {
 		}
 
 		payload, err := json.Marshal(tokens)
-
+		if err != nil {
+			fmt.Printf("ERROR: Could not serialize the list of tokens into JSON: %s",
+				err.Error())
+		}
 		fmt.Printf("%v\n", string(payload))
 	}
 }
