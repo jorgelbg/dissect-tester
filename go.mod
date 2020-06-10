@@ -15,9 +15,9 @@ require (
 	github.com/elastic/go-ucfg v0.8.3 // indirect
 	github.com/go-sourcemap/sourcemap v2.1.3+incompatible // indirect
 	github.com/gofrs/uuid v3.3.0+incompatible // indirect
+	github.com/google/go-cmp v0.4.1
 	github.com/rcrowley/go-metrics v0.0.0-20200313005456-10cdbea86bc0 // indirect
 	github.com/spf13/cobra v1.0.0 // indirect
-	github.com/stretchr/testify v1.4.0
 	go.uber.org/automaxprocs v1.3.0
 	go.uber.org/zap v1.15.0
 	gopkg.in/alecthomas/kingpin.v2 v2.2.6

@@ -7,14 +7,13 @@ function testSamples() {
 
   let url = new URL(API_URL);
 
-  let body = new FormData();
-  body.append("tokenizer", encodeURIComponent(pattern));
-  body.append("str", encodeURIComponent(samples));
+  let body = new URLSearchParams();
+  body.set("tokenizer", pattern);
+  body.set("str", samples);
 
   fetch(url, {
     method: "POST",
     cache: "no-cache",
-    headers: { "Content-Encoding": "multipart/form-data" },
     body: body,
   })
     .then((res) => {

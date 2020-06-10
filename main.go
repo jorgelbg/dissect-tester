@@ -9,7 +9,6 @@ import (
 	"fmt"
 	"html/template"
 	"net/http"
-	"net/url"
 	"strings"
 	"time"
 
@@ -46,22 +45,22 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func apiHandler(w http.ResponseWriter, r *http.Request) {
-	err := r.ParseMultipartForm(maxPostMemory)
+	err := r.ParseForm()
 	if err != nil {
 		http.Error(w, fmt.Sprintf("Couldn't parse POST request: %s", err.Error()),
 			http.StatusBadRequest)
 		return
 	}
 
-	str, err := url.QueryUnescape(r.Form.Get("str"))
-	if len(str) == 0 || err != nil {
-		http.Error(w, "samples parameter not found", http.StatusBadRequest)
+	str := r.Form.Get("str")
+	if len(str) == 0 {
+		http.Error(w, "str parameter not found", http.StatusBadRequest)
 		return
 	}
 
-	tokenizer, err := url.QueryUnescape(r.Form.Get("tokenizer"))
-	if len(tokenizer) == 0 || err != nil {
-		http.Error(w, "pattern parameter not found", http.StatusBadRequest)
+	tokenizer := r.Form.Get("tokenizer")
+	if len(tokenizer) == 0 {
+		http.Error(w, "tokenizer parameter not found", http.StatusBadRequest)
 		return
 	}
 
