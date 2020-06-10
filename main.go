@@ -19,9 +19,6 @@ import (
 )
 
 const (
-	// maxPostMemory memory limit for parsing the POST HTTP request
-	maxPostMemory = 16 * 1024 * 1024
-
 	// several timeout options for the HTTP server
 	readTimeout  = 5 * time.Second
 	writeTimeout = 5 * time.Second
