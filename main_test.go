@@ -16,56 +16,54 @@ import (
 
 func TestAPIHandler(t *testing.T) {
 	testCases := []struct {
-		name           string
-		path           string
-		method         string
-		payload        url.Values
-		expectedBody   string
-		expectedStatus int
+		name     string
+		method   string
+		payload  url.Values
+		response string
+		status   int
 	}{
 		{
 			name:   "Valid tokenizer and str",
-			path:   "/api",
 			method: "POST",
 			payload: url.Values{
 				"tokenizer": {"%{key1} %{key2}"},
 				"str":       {"a b"},
 			},
-			expectedBody:   "[{\"key1\":\"a\",\"key2\":\"b\"}]",
-			expectedStatus: http.StatusOK,
+			response: "[{\"key1\":\"a\",\"key2\":\"b\"}]",
+			status:   http.StatusOK,
 		},
 		{
 			name:   "Missing str parameter",
-			path:   "/api",
 			method: "POST",
 			payload: url.Values{
 				"tokenizer": {"%{key1} %{key2}"},
 			},
-			expectedBody:   "str parameter not found\n",
-			expectedStatus: http.StatusBadRequest,
+			response: "str parameter not found\n",
+			status:   http.StatusBadRequest,
 		},
 	}
 
 	for _, tc := range testCases {
 		t.Run(tc.name, func(t *testing.T) {
-			req, err := http.NewRequest(tc.method, tc.path, strings.NewReader(
+			req, err := http.NewRequest(tc.method, "/api", strings.NewReader(
 				tc.payload.Encode()),
 			)
 			if err != nil {
 				t.Fatal(err)
 			}
-			req.Header.Add("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8")
+			req.Header.Add("Content-Type",
+				"application/x-www-form-urlencoded;charset=UTF-8")
 
 			rr := httptest.NewRecorder()
 			handler := http.HandlerFunc(apiHandler)
 
 			handler.ServeHTTP(rr, req)
-			if status := rr.Code; status != tc.expectedStatus {
+			if status := rr.Code; status != tc.status {
 				t.Errorf("handler returned wrong status code: got %v want %v",
-					status, tc.expectedStatus)
+					status, tc.status)
 			}
 
-			if diff := cmp.Diff(tc.expectedBody, rr.Body.String()); diff != "" {
+			if diff := cmp.Diff(tc.response, rr.Body.String()); diff != "" {
 				t.Errorf("handler returned wrong body (-want +got):\n%s", diff)
 			}
 		})
