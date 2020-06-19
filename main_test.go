@@ -41,6 +41,15 @@ func TestAPIHandler(t *testing.T) {
 			response: "str parameter not found\n",
 			status:   http.StatusBadRequest,
 		},
+		{
+			name:   "Missing tokenizer parameter",
+			method: "POST",
+			payload: url.Values{
+				"str": {"a b"},
+			},
+			response: "tokenizer parameter not found\n",
+			status:   http.StatusBadRequest,
+		},
 	}
 
 	for _, tc := range testCases {
