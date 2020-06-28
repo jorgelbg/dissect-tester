@@ -52,6 +52,12 @@ If you want to build a new Docker image use the following command:
 make docker
 ```
 
+For running all tests you can use:
+
+```shell
+make test
+```
+
 ## 🤚🏻 Contributing
 
 If you'd like to contribute, please fork the repository and use a feature
