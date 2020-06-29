@@ -25,9 +25,10 @@ New releases are published to a public [Docker image](https://hub.docker.com/rep
 docker run --rm -ti -p 8080:8080 jorgelbg/dissect-tester
 ```
 
-The terminal should print a message similar to
+The terminal should print a couple of messages similar to
 ```json
-{"level":"info","ts":1582130507.8919635,"caller":"build/main.go:68","msg":"Server is running","port":8080}
+{"level":"info","timestamp":"2020-06-30T01:42:16.838+0200","caller":"dissect-tester/main.go:112","msg":"maxprocs: Leaving GOMAXPROCS=8: CPU quota undefined"}
+{"level":"info","timestamp":"2020-06-30T01:42:16.838+0200","caller":"dissect-tester/main.go:137","msg":"Server is running","port":8080}
 ```
 
 Indicating the the server is running. Head your browser to http://localhost:8080/ and enjoy 🎉.
