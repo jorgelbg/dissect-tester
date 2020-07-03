@@ -1,6 +1,6 @@
 # dissect-tester
 
-![Filebeat](https://img.shields.io/badge/Beats-7.6.x-blueviolet?style=flat&logo=beats&color=00BFB3)
+![Filebeat](https://img.shields.io/badge/Beats-7.8.x-blueviolet?style=flat&logo=beats&color=00BFB3)
 ![Docker pulls](https://badgen.net/docker/pulls/jorgelbg/dissect-tester?icon=docker&color=purple)
 
 <p align="center">
