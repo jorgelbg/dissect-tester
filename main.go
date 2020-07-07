@@ -94,6 +94,17 @@ func apiHandler(w http.ResponseWriter, r *http.Request) {
 	w.Write(payload) // nolint: errcheck
 }
 
+// RegisterAppHandlers registers the app handlers with the given mux
+func RegisterAppHandlers(mux *http.ServeMux) {
+	mux.Handle(StaticPath,
+		http.StripPrefix(StaticPath, http.FileServer(http.Dir("static"))),
+	)
+
+	mux.HandleFunc("/", indexHandler)
+	mux.HandleFunc(APIPath, apiHandler)
+
+}
+
 func main() {
 	config := zap.NewProductionConfig()
 	config.EncoderConfig.TimeKey = "timestamp"
@@ -120,15 +131,10 @@ func main() {
 	mux := http.NewServeMux()
 
 	RegisterDebugHandler(mux)
-	mux.Handle(StaticPath,
-		http.StripPrefix(StaticPath, http.FileServer(http.Dir("static"))),
-	)
-
-	mux.HandleFunc("/", indexHandler)
-	mux.HandleFunc(APIPath, apiHandler)
+	RegisterAppHandlers(mux)
 
 	server := http.Server{
-		Handler:      http.TimeoutHandler(mux, procTimeout, "Processing your request took too long!"),
+		Handler:      http.TimeoutHandler(mux, procTimeout, "Processing your request took too long."),
 		ReadTimeout:  readTimeout,
 		WriteTimeout: writeTimeout,
 	}

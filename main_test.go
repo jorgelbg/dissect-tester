@@ -50,6 +50,13 @@ func TestAPIHandler(t *testing.T) {
 			response: "tokenizer parameter not found\n",
 			status:   http.StatusBadRequest,
 		},
+		{
+			name:     "Empty payload",
+			method:   "GET",
+			payload:  nil,
+			response: "str parameter not found\n",
+			status:   http.StatusBadRequest,
+		},
 	}
 
 	for _, tc := range testCases {
@@ -76,5 +83,52 @@ func TestAPIHandler(t *testing.T) {
 				t.Errorf("handler returned wrong body (-want +got):\n%s", diff)
 			}
 		})
+	}
+}
+
+func TestIndexRoute(t *testing.T) {
+	mux := http.NewServeMux()
+	RegisterAppHandlers(mux)
+
+	// The response recorder used to record HTTP responses
+	rr := httptest.NewRecorder()
+
+	req, err := http.NewRequest("GET", "/", nil)
+	if err != nil {
+		t.Fatal("Creating 'GET /' request failed,")
+	}
+
+	mux.ServeHTTP(rr, req)
+	if rr.Code != http.StatusOK {
+		t.Fatalf("'GET /' request should've a handler registered, got: %d, want: %d",
+			rr.Code, http.StatusOK,
+		)
+	}
+}
+
+func TestAPIRoute(t *testing.T) {
+	mux := http.NewServeMux()
+	RegisterAppHandlers(mux)
+
+	// The response recorder used to record HTTP responses
+	rr := httptest.NewRecorder()
+	payload := url.Values{
+		"tokenizer": {"%{key1} %{key2}"},
+		"str":       {"a b"},
+	}
+
+	req, err := http.NewRequest("POST", APIPath, strings.NewReader(
+		payload.Encode()))
+	if err != nil {
+		t.Fatalf("Creating 'POST /api' request failed.")
+	}
+	req.Header.Add("Content-Type",
+		"application/x-www-form-urlencoded;charset=UTF-8")
+
+	mux.ServeHTTP(rr, req)
+	if rr.Code != http.StatusOK {
+		t.Fatalf("'POST /api' request should've a handler registered, got: %d, want: %d",
+			rr.Code, http.StatusOK,
+		)
 	}
 }
