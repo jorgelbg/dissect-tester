@@ -138,13 +138,14 @@ func main() {
 		ReadTimeout:  readTimeout,
 		WriteTimeout: writeTimeout,
 	}
+	defer server.Close()
 	server.Addr = ":8080"
 
 	logger.Sugar().Infow("Server is running",
 		"port", 8080,
 	)
 
-	if err := server.ListenAndServe(); err != nil {
+	if err := server.ListenAndServe(); err != http.ErrServerClosed {
 		logger.Error("Could not start HTTP server.",
 			zap.Error(err),
 		)
