@@ -102,7 +102,6 @@ func RegisterAppHandlers(mux *http.ServeMux) {
 
 	mux.HandleFunc("/", indexHandler)
 	mux.HandleFunc(APIPath, apiHandler)
-
 }
 
 func main() {
