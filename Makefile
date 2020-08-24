@@ -22,7 +22,7 @@ export GO111MODULE=on
 all: fmt lint | $(BIN) ; $(info $(M) building executable…) @ ## Build program binary
 	$Q $(GO) build \
 		-tags release \
-		-ldflags '-X $(MODULE)/cmd.Version=$(VERSION) -X $(MODULE)/cmd.BuildDate=$(DATE)' \
+		-ldflags '-X $(MODULE)/main.Version=$(VERSION) -X $(MODULE)/main.BuildDate=$(DATE)' \
 		-o $(BIN)/$(basename $(MODULE)) $(GOFILES)
 
 # Tools
@@ -31,9 +31,9 @@ $(BIN):
 	@mkdir -p $@
 $(BIN)/%: | $(BIN) ; $(info $(M) building $(PACKAGE)…)
 	$Q tmp=$$(mktemp -d); \
-	   env GO111MODULE=off GOPATH=$$tmp GOBIN=$(BIN) $(GO) get $(PACKAGE) \
+		env GO111MODULE=off GOPATH=$$tmp GOBIN=$(BIN) $(GO) get $(PACKAGE) \
 		|| ret=$$?; \
-	   rm -rf $$tmp ; exit $$ret
+		rm -rf $$tmp ; exit $$ret
 
 GOLINT = $(BIN)/golint
 $(BIN)/golint: PACKAGE=golang.org/x/lint/golint
