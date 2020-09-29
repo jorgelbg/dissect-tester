@@ -6,9 +6,10 @@
     "watch": "^1.0.2"
   },
   "devDependencies": {
-    "postcss": "^7.0.26",
-    "postcss-cli": "^7.1.0",
-    "tailwindcss": "^1.2.0"
+    "postcss": "^7.0.35",
+    "postcss-cli": "^7.1.2",
+    "tailwindcss": "^1.8.0",
+    "yargs-parser": ">=18.1.2"
   },
   "scripts": {
     "build:tailwind": "postcss ./static/css/master.css -o ./static/dist/tailwind.css",
