@@ -11,7 +11,7 @@ import (
 	"os"
 	"strings"
 
-	"github.com/elastic/beats/libbeat/processors/dissect"
+	"github.com/elastic/beats/v7/libbeat/processors/dissect"
 	"gopkg.in/alecthomas/kingpin.v2"
 )
 
