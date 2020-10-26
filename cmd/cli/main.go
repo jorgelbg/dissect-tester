@@ -40,7 +40,7 @@ func main() {
 			return
 		}
 
-		tokens, err := processor.Dissect(sample)
+		tokens, err := processor.DissectConvert(sample)
 		if err != nil {
 			fmt.Printf("ERROR: %s", err.Error())
 			continue
