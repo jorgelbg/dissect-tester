@@ -162,7 +162,7 @@
       </div>
     </div>
 
-    <div class="container mx-auto mt-8 flex-grow">
+    <div class="container mx-auto mt-8">
       <form class="w-full" onsubmit="testSamples(); return false;">
         <div class="md:flex md:items-center mb-6 flex-col">
           <label for="pattern" class="w-full text-lg pb-4">Pattern</label>
@@ -285,6 +285,43 @@ a b</textarea
         </div>
       </form>
     </div>
+
+    <div class="container mx-auto mt-8 flex-grow">
+      <div class="flex items-center">
+        <svg class="w-10 h-10 mr-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><defs/><path
+        fill="#ffa000" d="M397 447L266 116c-1-4-5-6-9-7L55 85a11 11 0 00-12 10L0 436a11 11 0 0010
+        12l373 43h1c6 0 10-4 11-10l3-30-1-4z"/><path fill="#ffe082" d="M469 95c0-6-6-10-11-10h-1l-91
+        11-271 32c-6 1-10 6-10 12l32 341c1 6 6 10 11 10h1l374-43a11 11 0 009-12L469 95z"/><path
+        fill="#455a64" d="M309 171a11 11 0 01-7-19l53-53a11 11 0 1115 15l-53 54c-2 2-5 3-8
+        3z"/><circle cx="394.8" cy="74.7" r="53.3" fill="#f44336"/></svg>
+        <h2 class="strong text-xl font-medium">New in beats v7.9</h2>
+      </div>
+      <p class="mt-4">
+        beats v7.9 introduced a new feature that allows converting a field from a <code
+        class="bg-gray-200 rounded p-1">string</code> (only data type supported until now) into one
+        of <code class="bg-gray-200 rounded p-1">integer</code>,
+        <code class="bg-gray-200 rounded p-1">long</code>,
+        <code class="bg-gray-200 rounded p-1">float</code>, <code class="bg-gray-200 rounded
+        p-1">double</code>, <code class="bg-gray-200 rounded p-1">boolean</code>, or <code
+        class="bg-gray-200 rounded p-1">ip</code>. This type conversion step was usually delegated to
+        a later step in your processing. To take advantage of this new feature you need to provide a
+        valid type after the key using | as a separator. For example:
+      </p>
+<pre class="mt-4 bg-gray-200 rounded p-4">
+  processors:
+  - dissect:
+      tokenizer: "%{key1} %{key2|integer}"
+      field: "message"
+      target_prefix: "dissect"
+</pre>
+    <p class="mt-4">
+      In this case <code class="bg-gray-200 rounded p-1">key2</code> will be casted to an integer
+      value. More information can be found in the <a class="text-blue-600 visited:text-purple-600"
+      href="https://www.elastic.co/guide/en/beats/filebeat/7.9/dissect.html">official
+      documentation</a>.
+    </p>
+    </div>
+
     <footer class="bg-gray-800 p-8 text-gray-200 mt-8 flex flex-col md:flex-row justify-between items-center">
       <div class="text-center md:text-left mb-4 md:mb-0">
         Built with 💖 by
