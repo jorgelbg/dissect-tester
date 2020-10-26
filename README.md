@@ -68,3 +68,4 @@ branch. Pull requests are warmly welcome.
 
 - Project homepage/Demo: http://dissect-tester.jorgelbg.me/
 - The project icon is based on the icon made by [monkik in www.flaticon.com](https://www.flaticon.com/free-icon/checklist_1085842)
+- Icons made by [Pixel perfect from www.flaticon.com](https://www.flaticon.com/authors/pixel-perfect)
