@@ -32,16 +32,16 @@ const (
 	APIPath    = "/api/"
 )
 
+var versionInfo = struct {
+	Version string
+}{
+	Version: version.GetDefaultVersion(),
+}
+
 func indexHandler(w http.ResponseWriter, r *http.Request) {
 	tmpl := template.Must(template.ParseFiles("templates/index.html"))
 
-	data := struct {
-		Version string
-	}{
-		Version: version.GetDefaultVersion(),
-	}
-
-	if err := tmpl.Execute(w, data); err != nil {
+	if err := tmpl.Execute(w, versionInfo); err != nil {
 		zap.L().Error("Could not parse template.",
 			zap.String("template", "templates/index.html"),
 			zap.Error(err),
@@ -125,7 +125,7 @@ func main() {
 	zap.ReplaceGlobals(logger)
 	defer logger.Sync() // nolint: errcheck
 
-	logger.Info("elastic/beats engine", zap.String("version", version.GetDefaultVersion()))
+	logger.Info("elastic/beats engine", zap.String("version", versionInfo.Version))
 
 	_, err = maxprocs.Set(maxprocs.Logger(
 		func(logMessage string, args ...interface{}) {
