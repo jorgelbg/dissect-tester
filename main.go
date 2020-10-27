@@ -13,6 +13,7 @@ import (
 	"time"
 
 	"github.com/elastic/beats/v7/libbeat/processors/dissect"
+	"github.com/elastic/beats/v7/libbeat/version"
 	"go.uber.org/automaxprocs/maxprocs"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
@@ -31,9 +32,16 @@ const (
 	APIPath    = "/api/"
 )
 
+var versionInfo = struct {
+	Version string
+}{
+	Version: version.GetDefaultVersion(),
+}
+
 func indexHandler(w http.ResponseWriter, r *http.Request) {
 	tmpl := template.Must(template.ParseFiles("templates/index.html"))
-	if err := tmpl.Execute(w, nil); err != nil {
+
+	if err := tmpl.Execute(w, versionInfo); err != nil {
 		zap.L().Error("Could not parse template.",
 			zap.String("template", "templates/index.html"),
 			zap.Error(err),
@@ -116,6 +124,8 @@ func main() {
 
 	zap.ReplaceGlobals(logger)
 	defer logger.Sync() // nolint: errcheck
+
+	logger.Info("elastic/beats engine", zap.String("version", versionInfo.Version))
 
 	_, err = maxprocs.Set(maxprocs.Logger(
 		func(logMessage string, args ...interface{}) {

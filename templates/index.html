@@ -139,7 +139,7 @@
           This app tries to parse a set of logfile samples with a given dissect
           tokenization pattern and return the matched fields for each log line.
         </p>
-        <h3 class="text-gray-800">
+        <p class="text-gray-800">
           Syntax compatible with
           <a
             class="text-blue-600"
@@ -158,7 +158,16 @@
             >Logstash</a
           >
           processors/filters.
-        </h3>
+        </p>
+      </div>
+      <div class="flex items-center mt-4">
+        <div class="flex items-center justify-center">
+          <svg class="w-8 h-8" viewBox="0 0 64 64"><defs/><g fill="none" fill-rule="evenodd"><path d="M0 0h64v64H0z"/><path fill="#343741" d="M45 28c-2-2-5-3-9-3H11v14h19c7 0 13-5 15-11"/><path fill="#00BFB3" d="M49 31c-3 8-11 13-19 13H11v15h25a17 17 0 0013-28"/><path fill="#07C" d="M45 28A17 17 0 0030 5H11v20h25c4 0 7 1 9 3"/></g></svg>
+          v<span class="text-xl font-medium">{{ .Version }}</span>
+          <div class="ml-2 p-2 text-gray-700">
+            This instance is using a backend running v{{ .Version }} of Elastic Beats.
+          </div>
+        </div>
       </div>
     </div>
 
