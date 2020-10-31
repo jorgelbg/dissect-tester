@@ -75,7 +75,7 @@ func apiHandler(w http.ResponseWriter, r *http.Request) {
 	)
 
 	samples := strings.Split(str, "\n")
-	tokenized := make([]map[string]string, 0)
+	tokenized := make([]map[string]interface{}, 0)
 	for i, s := range samples {
 		processor, err := dissect.New(tokenizer)
 		if err != nil {
@@ -83,7 +83,7 @@ func apiHandler(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		m, err := processor.Dissect(s)
+		m, err := processor.DissectConvert(s)
 		if err != nil {
 			http.Error(w, fmt.Sprintf("sample: %d, error: %s", i, err), http.StatusBadRequest)
 			return
