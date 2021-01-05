@@ -17,7 +17,7 @@ supported by the [Filebeat dissect processor](https://www.elastic.co/guide/en/be
 
 ## 🎮 Installing / Getting started
 
-🔗 If you only want to test some samples you can go directly to the demo instance running in http://dissect-tester.jorgelbg.me/.
+If you only want to test some samples you can go directly to the demo instance running in http://dissect-tester.jorgelbg.me/.
 
 New releases are published to a public [Docker image](https://hub.docker.com/repository/docker/jorgelbg/dissect-tester). To run it you can use the following command:
 
@@ -31,7 +31,7 @@ The terminal should print a couple of messages similar to
 {"level":"info","timestamp":"2020-06-30T01:42:16.838+0200","caller":"dissect-tester/main.go:137","msg":"Server is running","port":8080}
 ```
 
-Indicating the the server is running. Head your browser to http://localhost:8080/ and enjoy 🎉.
+Indicating the the server is running. Point your browser to http://localhost:8080/ and enjoy 🎉.
 
 Your browser should show the following:
 
