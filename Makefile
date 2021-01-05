@@ -103,6 +103,10 @@ docker-local: ; $(info $(M) building docker image using the local vendor directo
 docker-push: ; $(info $(M) pushing docker image…) @ ## Push docker image
 	@docker push $(IMAGE)
 
+.PHONY: run
+run: ; $(info $(M) running local binary…) @ ## Run the local
+	$(GO) build
+	@$(lastword $(shell pwd))/dissect-tester
 
 # Misc
 
