@@ -5,13 +5,16 @@
 package main
 
 import (
+	"errors"
 	"net/http"
 	"net/http/httptest"
 	"net/url"
 	"strings"
 	"testing"
 
+	"github.com/elastic/beats/v7/libbeat/processors/dissect"
 	"github.com/google/go-cmp/cmp"
+	"github.com/magiconair/properties/assert"
 )
 
 func TestAPIHandler(t *testing.T) {
@@ -131,4 +134,15 @@ func TestAPIRoute(t *testing.T) {
 			rr.Code, http.StatusOK,
 		)
 	}
+}
+
+func TestBadUserCase(t *testing.T) {
+	const (
+		pattern = "%{id} %{function-\u003e}%{server}"
+		message = `00000043 ViewReceive machine-321    `
+	)
+
+	_, err := dissect.New(pattern)
+	myError := errors.New("invalid dissect tokenizer")
+	assert.Equal(t, myError, err)
 }
