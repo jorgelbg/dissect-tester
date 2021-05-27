@@ -10,11 +10,10 @@ replace (
 )
 
 require (
-	github.com/elastic/beats/v7 v7.9.3
-	github.com/google/go-cmp v0.4.0
-	github.com/inconshreveable/mousetrap v1.0.0 // indirect
-	github.com/magiconair/properties v1.8.4
+	github.com/elastic/beats/v7 v7.13.0
+	github.com/google/go-cmp v0.5.2
 	go.uber.org/automaxprocs v1.3.0
 	go.uber.org/zap v1.14.0
+	golang.org/x/tools v0.0.0-20200904185747-39188db58858 // indirect
 	gopkg.in/alecthomas/kingpin.v2 v2.2.6
 )
