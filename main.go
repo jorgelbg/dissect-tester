@@ -138,9 +138,19 @@ func main() {
 	}
 
 	mux := http.NewServeMux()
+	pprofMux := http.NewServeMux()
 
-	RegisterDebugHandler(mux)
 	RegisterAppHandlers(mux)
+	RegisterDebugHandler(pprofMux)
+
+	go func() {
+		pprofServer := http.Server{
+			Addr:    "localhost:6060",
+			Handler: pprofMux,
+		}
+		logger.Info("Starting debug server")
+		logger.Error("Error starting pprof server", zap.Error(pprofServer.ListenAndServe()))
+	}()
 
 	server := http.Server{
 		Handler:      http.TimeoutHandler(mux, procTimeout, "Processing your request took too long."),
