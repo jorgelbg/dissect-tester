@@ -1,6 +1,6 @@
 module github.com/jorgelbg/dissect-tester
 
-go 1.13
+go 1.16
 
 replace (
 	github.com/Shopify/sarama => github.com/elastic/sarama v1.19.1-0.20200629123429-0e7b69039eec
@@ -10,10 +10,9 @@ replace (
 )
 
 require (
-	github.com/elastic/beats/v7 v7.13.0
+	github.com/elastic/beats/v7 v7.15.0
 	github.com/google/go-cmp v0.5.2
 	go.uber.org/automaxprocs v1.3.0
 	go.uber.org/zap v1.14.0
-	golang.org/x/tools v0.0.0-20200904185747-39188db58858 // indirect
 	gopkg.in/alecthomas/kingpin.v2 v2.2.6
 )
