@@ -3,11 +3,12 @@
   "version": "1.0.0",
   "main": "index.js",
   "devDependencies": {
-    "postcss": "^8.2.10",
-    "postcss-cli": "^7.1.2",
-    "tailwindcss": "^1.8.0",
-    "yargs-parser": ">=18.1.2",
-    "watch": "^1.0.2"
+    "merge": ">=2.1.1",
+    "postcss": "8.2",
+    "postcss-cli": "^8.2",
+    "tailwindcss": "^2.2",
+    "watch": "^1.0.2",
+    "yargs-parser": ">=18.1.2"
   },
   "scripts": {
     "build:tailwind": "postcss ./static/css/master.css -o ./static/dist/tailwind.css",
