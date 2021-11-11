@@ -28,8 +28,8 @@ const (
 
 // A list of HTTP endpoints to register
 const (
-	StaticPath = "/static/"
-	APIPath    = "/api/"
+	staticPath = "/static/"
+	apiPath    = "/api/"
 )
 
 var versionInfo = struct {
@@ -104,12 +104,12 @@ func apiHandler(w http.ResponseWriter, r *http.Request) {
 
 // RegisterAppHandlers registers the app handlers with the given mux
 func RegisterAppHandlers(mux *http.ServeMux) {
-	mux.Handle(StaticPath,
-		http.StripPrefix(StaticPath, http.FileServer(http.Dir("static"))),
+	mux.Handle(staticPath,
+		http.StripPrefix(staticPath, http.FileServer(http.Dir("static"))),
 	)
 
 	mux.HandleFunc("/", indexHandler)
-	mux.HandleFunc(APIPath, apiHandler)
+	mux.HandleFunc(apiPath, apiHandler)
 }
 
 func main() {
