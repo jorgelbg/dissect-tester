@@ -117,7 +117,7 @@ func TestAPIRoute(t *testing.T) {
 		"str":       {"a b"},
 	}
 
-	req, err := http.NewRequest("POST", APIPath, strings.NewReader(
+	req, err := http.NewRequest("POST", apiPath, strings.NewReader(
 		payload.Encode()))
 	if err != nil {
 		t.Fatalf("Creating 'POST /api' request failed.")

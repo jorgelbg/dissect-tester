@@ -6,6 +6,7 @@ package main
 
 import (
 	"encoding/json"
+	"flag"
 	"fmt"
 	"html/template"
 	"net/http"
@@ -127,6 +128,9 @@ func main() {
 
 	logger.Info("elastic/beats engine", zap.String("version", versionInfo.Version))
 
+	listenAddr := flag.String("listen", ":8080", "address to listen on")
+	flag.Parse()
+
 	_, err = maxprocs.Set(maxprocs.Logger(
 		func(logMessage string, args ...interface{}) {
 			logger.Sugar().Info(fmt.Sprintf(logMessage, args...))
@@ -158,10 +162,10 @@ func main() {
 		WriteTimeout: writeTimeout,
 	}
 	defer server.Close()
-	server.Addr = ":8080"
+	server.Addr = *listenAddr
 
 	logger.Sugar().Infow("Server is running",
-		"port", 8080,
+		"address", *listenAddr,
 	)
 
 	if err := server.ListenAndServe(); err != http.ErrServerClosed {
