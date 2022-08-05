@@ -24,16 +24,69 @@ function testSamples() {
       return res.text();
     })
     .then((payload) => {
-      if (Array.isArray(payload)) {
-        let str = payload.map((s) => JSON.stringify(s, null, 2));
-        resultTextArea.value = str.join("\n");
-        resultTextArea.focus();
-
-        return;
+      resultTextArea.replaceChildren();
+      if (!Array.isArray(payload)) {
+        payload = [payload.replace("\n", "")];
       }
 
-      // handle the error message
-      resultTextArea.value = payload;
-      resultTextArea.focus();
+      payload.forEach((s, pos) => {
+        s = JSON.stringify(s, null, 2)
+        let textarea = document.createElement("textarea");
+        textarea.className = "bg-gray-200 appearance-none border-2 border-gray-200 rounded py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 font-mono w-full hover:bg-purple-200";
+        textarea.value = s;
+        let rows = (s.match(/\n/g) || '').length + 1;
+        textarea.rows = rows > 2 ? rows : 2;
+        textarea.onmouseover = function(e) {
+          selectTextareaLine(document.querySelector("#samples"), pos)
+        }
+        textarea.onmouseout = function(e) {
+          document.getSelection().removeAllRanges()
+        }
+        
+        resultTextArea.appendChild(textarea);
+      })
+
+      return;
     });
+}
+
+function selectTextareaLine(tarea,lineNum) {
+  // lineNum--; // array starts at 0
+  var lines = tarea.value.split("\n");
+
+  // calculate start/end
+  var startPos = 0, endPos = tarea.value.length;
+  for(var x = 0; x < lines.length; x++) {
+      if(x == lineNum) {
+          break;
+      }
+      startPos += (lines[x].length+1);
+
+  }
+
+  var endPos = lines[lineNum].length+startPos;
+
+  // do selection
+  // Chrome / Firefox
+
+  if(typeof(tarea.selectionStart) != "undefined") {
+      tarea.focus();
+      tarea.selectionStart = startPos;
+      tarea.selectionEnd = endPos;
+      return true;
+  }
+
+  // IE
+   if (document.selection && document.selection.createRange) {
+      tarea.focus();
+      tarea.select();
+      var range = document.selection.createRange();
+      range.collapse(true);
+      range.moveEnd("character", endPos);
+      range.moveStart("character", startPos);
+      range.select();
+      return true;
+  }
+
+  return false;
 }
