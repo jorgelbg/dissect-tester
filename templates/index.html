@@ -93,7 +93,7 @@
     <link rel="manifest" href="/static/manifest.json" />
     <meta name="theme-color" content="#ffffff" />
     <link href="/static/dist/tailwind.css" rel="stylesheet" />
-    <script src="/static/js/main.js"></script>
+    <script defer src="/static/js/main.js"></script>
   </head>
   <body class="flex flex-col min-h-screen p-4 sm:p-0">
     <header
@@ -252,7 +252,7 @@
               One sample per line
             </div>
             <pre
-              class="bg-gray-200 appearance-none border-2 border-gray-200 rounded py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 font-mono w-full md:h-96"
+              class="bg-gray-200 appearance-none border-2 border-gray-200 rounded py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 font-mono w-full md:h-96 relative"
               id="samples"
               rows="18"
               contenteditable="true"
