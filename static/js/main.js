@@ -2,7 +2,7 @@ const API_URL = window.location.href.split("?")[0] + "api/";
 
 function testSamples() {
   let pattern = document.querySelector("#pattern").value;
-  let samples = document.querySelector("#samples").value;
+  let samples = document.querySelector("#samples").innerText;
   let resultTextArea = document.querySelector("#results");
 
   let url = new URL(API_URL);
@@ -37,10 +37,12 @@ function testSamples() {
         let rows = (s.match(/\n/g) || '').length + 1;
         textarea.rows = rows > 2 ? rows : 2;
         textarea.onmouseover = function(e) {
-          selectTextareaLine(document.querySelector("#samples"), pos)
+          // selectTextareaLine(document.querySelector("#samples"), pos)
+          selectContentEditableLine(document.querySelector("#samples"), pos);
         }
         textarea.onmouseout = function(e) {
-          document.getSelection().removeAllRanges()
+          // document.getSelection().removeAllRanges()
+          clearContentEditableLine(document.querySelector("#samples"));
         }
         
         resultTextArea.appendChild(textarea);
@@ -48,6 +50,24 @@ function testSamples() {
 
       return;
     });
+}
+
+function selectContentEditableLine(el, pos) {
+  lines = el.innerText.split('\n');
+  console.log(lines);
+  let mark = document.createElement('mark');
+  mark.className="block w-full bg-purple-200 p-2";
+  mark.innerText = lines[pos].trim();
+  console.log(mark.outerHTML);
+  lines[pos] = mark.outerHTML;
+
+  el.innerHTML = lines.join('\n');
+}
+
+function clearContentEditableLine(el) {
+  // remove all mark elements
+  let lines = el.innerHTML.replace(/<\/?[^>]+>/gi, '').trim();
+  el.innerText = lines;
 }
 
 function selectTextareaLine(tarea,lineNum) {
