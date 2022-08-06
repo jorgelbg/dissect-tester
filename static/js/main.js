@@ -58,13 +58,13 @@ function testSamples() {
 
 function selectContentEditableLine(el, pos) {
   lines = el.innerText.split('\n').filter(function(line) {return line.length > 0});
-  console.log(lines);
+  // console.log(lines);
   let mark = document.createElement('mark');
   mark.id="left"+pos;
   mark.className="block w-full bg-purple-400 p-2 rounded text-white -ml-2";
   mark.style="z-index:20;";
   mark.innerText = lines[pos].trim();
-  console.log(mark.outerHTML);
+  // console.log(mark.outerHTML);
   lines[pos] = mark.outerHTML;
 
   el.innerHTML = lines.join('\n');
@@ -114,6 +114,7 @@ function findAbsolutePosition(htmlElement) {
          x += el.offsetLeft;
          y += el.offsetTop;
   }
+
   return {
       "x": x,
       "y": y
@@ -124,15 +125,18 @@ function connectDivs(leftId, rightId, color, tension) {
   var left = document.getElementById(leftId);
   var right = document.getElementById(rightId);
 	
-  var leftPos = findAbsolutePosition(left);
-  var x1 = leftPos.x;
-  var y1 = leftPos.y;
+  // var leftPos = findAbsolutePosition(left);
+  // var x1 = leftPos.x;
+  // var y1 = leftPos.y;
+  let leftOff = getOffset(left);
+  var x1 = leftOff.left;
+  var y1 = leftOff.top;
   x1 += left.offsetWidth;
   y1 += (left.offsetHeight / 2);
 
-  var rightPos = findAbsolutePosition(right);
-  var x2 = rightPos.x;
-  var y2 = rightPos.y;
+  let rightOff = getOffset(right);
+  var x2 = rightOff.left;
+  var y2 = rightOff.top;
   y2 += (right.offsetHeight / 2);
 
   var width=x2-x1;
@@ -209,4 +213,16 @@ editor.addEventListener("paste", function(e) {
   e.preventDefault();
   const text = e.clipboardData.getData('text/plain');
   document.execCommand("insertHTML", false, text);
+});
+
+function getOffset(el) {
+  const rect = el.getBoundingClientRect();
+  return {
+    left: rect.left + window.scrollX,
+    top: rect.top + window.scrollY
+  };
+}
+
+document.querySelector("#results").addEventListener('scroll', function(e) {
+  document.getElementById('svg-canvas').innerHTML = "";
 });
