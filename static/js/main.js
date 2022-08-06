@@ -32,14 +32,15 @@ function testSamples() {
       payload.forEach((s, pos) => {
         s = JSON.stringify(s, null, 2)
         let textarea = document.createElement("textarea");
-        textarea.className = "bg-gray-200 appearance-none border-2 border-gray-200 rounded py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 font-mono w-full hover:bg-purple-400 hover:border-purple-400 hover:text-white";
+        textarea.className = "bg-gray-200 appearance-none border-2 border-gray-200 rounded py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 font-mono w-full hover:bg-purple-400 hover:border-purple-400 hover:text-white focus:text-black";
         textarea.id="right"+pos;
         textarea.setAttribute("z-index", "20");
         textarea.value = s;
         let rows = (s.match(/\n/g) || '').length + 1;
         textarea.rows = rows > 2 ? rows : 2;
         textarea.onmouseover = function(e) {
-          // selectTextareaLine(document.querySelector("#samples"), pos)
+          document.querySelector("#samples").blur();
+          document.querySelector("#samples").classList.remove('py-2')
           selectContentEditableLine(document.querySelector("#samples"), pos);
           let el = document.getElementById('left'+pos);
           el.scrollIntoView({
@@ -48,11 +49,16 @@ function testSamples() {
               inline: 'start'
           });
 
+          textarea.scrollIntoView({
+            block: 'nearest',
+            inline: 'start'
+          });
+          
           const intersectionObserver = new IntersectionObserver((entries) => {
             let [entry] = entries;
             if (entry.isIntersecting) {
-              setTimeout(function() { 
-                connectDivs("left"+pos, "right"+pos, "rgba(167, 139, 250, 1)", 0.8);
+              setTimeout(function() {
+                connectDivs("left"+pos, "right"+pos, "rgba(167, 139, 250, 1)", 1);
               }, 100)
             }
           });
@@ -61,7 +67,8 @@ function testSamples() {
           // connectDivs("left"+pos, "right"+pos, "rgba(167, 139, 250, 1)", 0.8);
         }
         textarea.onmouseout = function(e) {
-          // document.getSelection().removeAllRanges()
+          document.querySelector("#samples").classList.add('py-2')
+          document.getSelection().removeAllRanges()
           clearContentEditableLine(document.querySelector("#samples"));
           document.getElementById('svg-canvas').innerHTML = "";
         }
@@ -78,7 +85,7 @@ function selectContentEditableLine(el, pos) {
   // console.log(lines);
   let mark = document.createElement('mark');
   mark.id="left"+pos;
-  mark.className="block w-full bg-purple-400 p-2 rounded text-white -ml-2";
+  mark.className="block bg-purple-400 p-2 pl-4 rounded text-white py-4 -ml-4";
   mark.style="z-index:20;";
   mark.innerText = lines[pos].trim();
   // console.log(mark.outerHTML);
