@@ -41,7 +41,24 @@ function testSamples() {
         textarea.onmouseover = function(e) {
           // selectTextareaLine(document.querySelector("#samples"), pos)
           selectContentEditableLine(document.querySelector("#samples"), pos);
-          connectDivs("left"+pos, "right"+pos, "rgba(167, 139, 250, 1)", 0.8);
+          let el = document.getElementById('left'+pos);
+          el.scrollIntoView({
+              behavior: 'smooth',
+              block: 'nearest',
+              inline: 'start'
+          });
+
+          const intersectionObserver = new IntersectionObserver((entries) => {
+            let [entry] = entries;
+            if (entry.isIntersecting) {
+              setTimeout(function() { 
+                connectDivs("left"+pos, "right"+pos, "rgba(167, 139, 250, 1)", 0.8);
+              }, 100)
+            }
+          });
+
+          intersectionObserver.observe(el)
+          // connectDivs("left"+pos, "right"+pos, "rgba(167, 139, 250, 1)", 0.8);
         }
         textarea.onmouseout = function(e) {
           // document.getSelection().removeAllRanges()
