@@ -44,7 +44,6 @@ function testSamples() {
           selectContentEditableLine(document.querySelector("#samples"), pos);
           let el = document.getElementById('left'+pos);
           el.scrollIntoView({
-              behavior: 'smooth',
               block: 'nearest',
               inline: 'start'
           });
@@ -101,7 +100,7 @@ function clearContentEditableLine(el) {
 }
 
 function createSVG() {
-  var svg = document.getElementById("svg-canvas");
+  let svg = document.getElementById("svg-canvas");
   if (null == svg) {
     svg = document.createElementNS("http://www.w3.org/2000/svg", 
                                    "svg");
@@ -119,9 +118,9 @@ function createSVG() {
   return svg;
 }
 
-function drawCircle(x, y, radius, color) {
-  var svg = createSVG();
-    var shape = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+function drawPoint(x, y, radius, color) {
+  let svg = createSVG();
+  let shape = document.createElementNS("http://www.w3.org/2000/svg", "circle");
   shape.setAttributeNS(null, "cx", x);
   shape.setAttributeNS(null, "cy", y);
   shape.setAttributeNS(null, "r",  radius);
@@ -129,58 +128,36 @@ function drawCircle(x, y, radius, color) {
   svg.appendChild(shape);
 }
 
-function findAbsolutePosition(htmlElement) {
-  var x = htmlElement.offsetLeft;
-  var y = htmlElement.offsetTop;
-  for (var x=0, y=0, el=htmlElement; 
-       el != null; 
-       el = el.offsetParent) {
-         x += el.offsetLeft;
-         y += el.offsetTop;
-  }
-
-  return {
-      "x": x,
-      "y": y
-  };
-}
-
 function connectDivs(leftId, rightId, color, tension) {
-  var left = document.getElementById(leftId);
-  var right = document.getElementById(rightId);
+  let left = document.getElementById(leftId);
+  let right = document.getElementById(rightId);
 	
-  // var leftPos = findAbsolutePosition(left);
-  // var x1 = leftPos.x;
-  // var y1 = leftPos.y;
   let leftOff = getOffset(left);
-  var x1 = leftOff.left;
-  var y1 = leftOff.top;
+  let x1 = leftOff.left;
+  let y1 = leftOff.top;
   x1 += left.offsetWidth;
   y1 += (left.offsetHeight / 2);
 
   let rightOff = getOffset(right);
-  var x2 = rightOff.left;
-  var y2 = rightOff.top;
+  let x2 = rightOff.left;
+  let y2 = rightOff.top;
   y2 += (right.offsetHeight / 2);
 
-  var width=x2-x1;
-  var height = y2-y1;
-
-  drawCircle(x1, y1, 6, color);
-  drawCircle(x2, y2, 6, color);
+  drawPoint(x1, y1, 6, color);
+  drawPoint(x2, y2, 6, color);
   drawCurvedLine(x1, y1, x2, y2, color, tension);
 }
 
 function drawCurvedLine(x1, y1, x2, y2, color, tension) {
-  var svg = createSVG();
-  var shape = document.createElementNS("http://www.w3.org/2000/svg", 
+  let svg = createSVG();
+  let shape = document.createElementNS("http://www.w3.org/2000/svg", 
                                        "path");
-  var delta = (x2-x1)*tension;
-  var hx1=x1+delta;
-  var hy1=y1;
-  var hx2=x2-delta;
-  var hy2=y2;
-  var path = "M "  + x1 + " " + y1 + 
+  let delta = (x2-x1)*tension;
+  let hx1=x1+delta;
+  let hy1=y1;
+  let hx2=x2-delta;
+  let hy2=y2;
+  let path = "M "  + x1 + " " + y1 + 
              " C " + hx1 + " " + hy1 
                    + " "  + hx2 + " " + hy2 
              + " " + x2 + " " + y2;
@@ -189,47 +166,6 @@ function drawCurvedLine(x1, y1, x2, y2, color, tension) {
   shape.setAttributeNS(null, "stroke", color);
   shape.setAttributeNS(null, "stroke-width", 5);
   svg.appendChild(shape);
-}
-
-function selectTextareaLine(tarea,lineNum) {
-  // lineNum--; // array starts at 0
-  var lines = tarea.value.split("\n");
-
-  // calculate start/end
-  var startPos = 0, endPos = tarea.value.length;
-  for(var x = 0; x < lines.length; x++) {
-      if(x == lineNum) {
-          break;
-      }
-      startPos += (lines[x].length+1);
-
-  }
-
-  var endPos = lines[lineNum].length+startPos;
-
-  // do selection
-  // Chrome / Firefox
-
-  if(typeof(tarea.selectionStart) != "undefined") {
-      tarea.focus();
-      tarea.selectionStart = startPos;
-      tarea.selectionEnd = endPos;
-      return true;
-  }
-
-  // IE
-   if (document.selection && document.selection.createRange) {
-      tarea.focus();
-      tarea.select();
-      var range = document.selection.createRange();
-      range.collapse(true);
-      range.moveEnd("character", endPos);
-      range.moveStart("character", startPos);
-      range.select();
-      return true;
-  }
-
-  return false;
 }
 
 const editor = document.querySelector('pre')
