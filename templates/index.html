@@ -93,34 +93,29 @@
     <link rel="manifest" href="/static/manifest.json" />
     <meta name="theme-color" content="#ffffff" />
     <link href="/static/dist/tailwind.css" rel="stylesheet" />
-    <script src="/static/js/main.js"></script>
+    <script defer src="/static/js/main.js"></script>
   </head>
   <body class="flex flex-col min-h-screen p-4 sm:p-0">
     <header
-      class="
-        p-1
-        flex
-        justify-center
-        text-gray-200
-        bg-gradient-to-r
-        from-green-400
-        to-blue-500
-        hover:from-pink-500 hover:to-yellow-500
-      ">
+      class="p-1 flex justify-center text-gray-200 bg-gradient-to-r from-green-400 to-blue-500 hover:from-pink-500 hover:to-yellow-500"
+    >
       If you have found this tool useful, give it a star&nbsp;
       <a
         class="flex items-center text-white font-bold"
         href="https://github.com/jorgelbg/dissect-tester"
-        >on Github</a>
+        >on Github</a
+      >
       <svg
         class="w-6 h-6 ml-1 text-white animate-pulse"
         data-darkreader-inline-fill=""
         fill="currentColor"
         style="--darkreader-inline-fill: currentColor"
         viewBox="0 0 20 20"
-        xmlns="http://www.w3.org/2000/svg">
+        xmlns="http://www.w3.org/2000/svg"
+      >
         <path
-          d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+          d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+        ></path>
       </svg>
     </header>
     <div class="container mx-auto mt-8">
@@ -189,10 +184,28 @@
       </div>
       <div class="flex items-center mt-4">
         <div class="flex items-center justify-center">
-          <svg class="w-8 h-8" viewBox="0 0 64 64"><defs/><g fill="none" fill-rule="evenodd"><path d="M0 0h64v64H0z"/><path fill="#343741" d="M45 28c-2-2-5-3-9-3H11v14h19c7 0 13-5 15-11"/><path fill="#00BFB3" d="M49 31c-3 8-11 13-19 13H11v15h25a17 17 0 0013-28"/><path fill="#07C" d="M45 28A17 17 0 0030 5H11v20h25c4 0 7 1 9 3"/></g></svg>
+          <svg class="w-8 h-8" viewBox="0 0 64 64">
+            <defs />
+            <g fill="none" fill-rule="evenodd">
+              <path d="M0 0h64v64H0z" />
+              <path
+                fill="#343741"
+                d="M45 28c-2-2-5-3-9-3H11v14h19c7 0 13-5 15-11"
+              />
+              <path
+                fill="#00BFB3"
+                d="M49 31c-3 8-11 13-19 13H11v15h25a17 17 0 0013-28"
+              />
+              <path
+                fill="#07C"
+                d="M45 28A17 17 0 0030 5H11v20h25c4 0 7 1 9 3"
+              />
+            </g>
+          </svg>
           v<span class="text-xl font-medium">{{ .Version }}</span>
           <div class="ml-2 p-2 text-gray-700">
-            This instance is using a backend running v{{ .Version }} of Elastic Beats.
+            This instance is using a backend running v{{ .Version }} of Elastic
+            Beats.
           </div>
         </div>
       </div>
@@ -210,11 +223,9 @@
             placeholder="Pattern to be tested against the log samples"
           />
         </div>
-        <div class="md:flex md:items-center mb-8">
-          <div class="md:w-1/2s mr-2 sm:w-full sm:mt-4">
-            <label for="pattern" class="w-full text-lg">
-              Log Samples
-            </label>
+        <div class="md:flex md:items-start mb-8">
+          <div class="md:w-1/2 mr-4 sm:w-full sm:mt-4">
+            <label for="pattern" class="w-full text-lg"> Log Samples </label>
             <div class="w-full text-sm text-gray-500 pb-4">
               <svg
                 class="fill-current text-gray-400 inline-block h-4 w-4 mr-1"
@@ -240,18 +251,17 @@
               </svg>
               One sample per line
             </div>
-            <textarea
-              class="bg-gray-200 appearance-none border-2 border-gray-200 rounded py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 font-mono w-full"
+            <pre
+              class="bg-gray-200 pr-0 appearance-none focus:border-2 border-gray-200 rounded py-2 px-4 text-gray-700 leading-tight focus:bg-white focus:outline-none focus:ring focus:ring-purple-500 font-mono w-full md:h-96 relative overflow-auto"
               id="samples"
-              rows="20"
+              rows="18"
+              contenteditable="true"
             >
-a b</textarea
+a b</pre
             >
           </div>
-          <div class="md:w-1/2s ml-2 sm:w-full sm:mt-4">
-            <label for="results" class="w-full text-lg">
-              Results
-            </label>
+          <div class="md:w-1/2 ml-2 sm:w-full sm:mt-4 md:h-96">
+            <label for="results" class="w-full text-lg"> Results </label>
             <div class="w-full text-sm text-gray-500 pb-4">
               <svg
                 class="fill-current text-gray-400 inline-block h-4 w-4 mr-1"
@@ -277,19 +287,20 @@ a b</textarea
               </svg>
               One result per block
             </div>
-            <textarea
+            <div id="results" class="overflow-scroll h-96"></div>
+            <!-- <textarea
               class="bg-gray-200 appearance-none border-2 border-gray-200 rounded py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 font-mono w-full"
               id="results"
               rows="20"
               placeholder="Output of the dissect tokenizer"
               readonly
-            ></textarea>
+            ></textarea> -->
           </div>
         </div>
         <div class="md:flex">
           <div class="md:w-1/2 sm:w-full flex justify-end">
             <button
-              class="w-full md:w-1/2 md:mr-2 shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded flex items-center h-12 justify-center"
+              class="w-full md:w-1/2 md:mr-3 shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded flex items-center h-12 justify-center"
               type="button"
               onclick="testSamples()"
             >
@@ -324,50 +335,85 @@ a b</textarea
 
     <div class="container mx-auto mt-8 flex-grow">
       <div class="flex items-center">
-        <svg class="w-10 h-10 mr-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><defs/><path
-        fill="#ffa000" d="M397 447L266 116c-1-4-5-6-9-7L55 85a11 11 0 00-12 10L0 436a11 11 0 0010
-        12l373 43h1c6 0 10-4 11-10l3-30-1-4z"/><path fill="#ffe082" d="M469 95c0-6-6-10-11-10h-1l-91
-        11-271 32c-6 1-10 6-10 12l32 341c1 6 6 10 11 10h1l374-43a11 11 0 009-12L469 95z"/><path
-        fill="#455a64" d="M309 171a11 11 0 01-7-19l53-53a11 11 0 1115 15l-53 54c-2 2-5 3-8
-        3z"/><circle cx="394.8" cy="74.7" r="53.3" fill="#f44336"/></svg>
+        <svg
+          class="w-10 h-10 mr-4"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 512 512"
+        >
+          <defs />
+          <path
+            fill="#ffa000"
+            d="M397 447L266 116c-1-4-5-6-9-7L55 85a11 11 0 00-12 10L0 436a11 11 0 0010
+        12l373 43h1c6 0 10-4 11-10l3-30-1-4z"
+          />
+          <path
+            fill="#ffe082"
+            d="M469 95c0-6-6-10-11-10h-1l-91
+        11-271 32c-6 1-10 6-10 12l32 341c1 6 6 10 11 10h1l374-43a11 11 0 009-12L469 95z"
+          />
+          <path
+            fill="#455a64"
+            d="M309 171a11 11 0 01-7-19l53-53a11 11 0 1115 15l-53 54c-2 2-5 3-8
+        3z"
+          />
+          <circle cx="394.8" cy="74.7" r="53.3" fill="#f44336" />
+        </svg>
         <h2 class="strong text-xl font-medium">New in beats v7.9</h2>
       </div>
       <p class="mt-4">
-        beats v7.9 introduced a new feature that allows converting a field from a <code
-        class="bg-gray-200 rounded p-1">string</code> (only data type supported until now) into one
-        of <code class="bg-gray-200 rounded p-1">integer</code>,
+        beats v7.9 introduced a new feature that allows converting a field from
+        a <code class="bg-gray-200 rounded p-1">string</code> (only data type
+        supported until now) into one of
+        <code class="bg-gray-200 rounded p-1">integer</code>,
         <code class="bg-gray-200 rounded p-1">long</code>,
-        <code class="bg-gray-200 rounded p-1">float</code>, <code class="bg-gray-200 rounded
-        p-1">double</code>, <code class="bg-gray-200 rounded p-1">boolean</code>, or <code
-        class="bg-gray-200 rounded p-1">ip</code>. This type conversion step was usually delegated to
-        a later step in your processing. To take advantage of this new feature you need to provide a
-        valid type after the key using <code class="bg-gray-200 rounded p-1">|</code> as a separator. For example:
+        <code class="bg-gray-200 rounded p-1">float</code>,
+        <code class="bg-gray-200 rounded p-1">double</code>,
+        <code class="bg-gray-200 rounded p-1">boolean</code>, or
+        <code class="bg-gray-200 rounded p-1">ip</code>. This type conversion
+        step was usually delegated to a later step in your processing. To take
+        advantage of this new feature you need to provide a valid type after the
+        key using <code class="bg-gray-200 rounded p-1">|</code> as a separator.
+        For example:
       </p>
-<pre class="mt-4 bg-gray-200 rounded p-4">
+      <pre class="mt-4 bg-gray-200 rounded p-4">
   processors:
   - dissect:
       tokenizer: "%{key1} %{key2|integer}"
       field: "message"
       target_prefix: "dissect"
-</pre>
-    <p class="mt-4">
-      In this case <code class="bg-gray-200 rounded p-1">key2</code> will be casted to an integer
-      value. More information can be found in the <a class="text-blue-600 visited:text-purple-600"
-      href="https://www.elastic.co/guide/en/beats/filebeat/7.9/dissect.html">official
-      documentation</a>.
-    </p>
+</pre
+      >
+      <p class="mt-4">
+        In this case <code class="bg-gray-200 rounded p-1">key2</code> will be
+        casted to an integer value. More information can be found in the
+        <a
+          class="text-blue-600 visited:text-purple-600"
+          href="https://www.elastic.co/guide/en/beats/filebeat/7.9/dissect.html"
+          >official documentation</a
+        >.
+      </p>
     </div>
 
-    <footer class="bg-gray-800 p-8 text-gray-200 mt-8 flex flex-col md:flex-row justify-between items-center">
+    <footer
+      class="bg-gray-800 p-8 text-gray-200 mt-8 flex flex-col md:flex-row justify-between items-center"
+    >
       <div class="text-center md:text-left mb-4 md:mb-0">
         Built with 💖 by
         <a href="https://jorgelbg.me" class="text-purple-400" target="_blank"
           >Jorge Luis Betancourt</a
         >
       </div>
-      <a class="flex items-center text-purple-200 hover:text-purple-500" href="https://github.com/jorgelbg/dissect-tester">
+      <a
+        class="flex items-center text-purple-200 hover:text-purple-500"
+        href="https://github.com/jorgelbg/dissect-tester"
+      >
         <p class="font-mono mr-4">Code</p>
-        <svg viewBox="0 0 16 16" fill="currentcolor" class="h-8 w-8"><path fill-rule="evenodd" d="M8 0C3.58.0.0 3.58.0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38.0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95.0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12.0.0.67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15.0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48.0 1.07-.01 1.93-.01 2.2.0.21.15.46.55.38A8.013 8.013.0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>
+        <svg viewBox="0 0 16 16" fill="currentcolor" class="h-8 w-8">
+          <path
+            fill-rule="evenodd"
+            d="M8 0C3.58.0.0 3.58.0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38.0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95.0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12.0.0.67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15.0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48.0 1.07-.01 1.93-.01 2.2.0.21.15.46.55.38A8.013 8.013.0 0016 8c0-4.42-3.58-8-8-8z"
+          ></path>
+        </svg>
       </a>
     </footer>
   </body>
