@@ -1,6 +1,6 @@
 module github.com/jorgelbg/dissect-tester
 
-go 1.16
+go 1.19
 
 replace (
 	github.com/Shopify/sarama => github.com/elastic/sarama v1.19.1-0.20200629123429-0e7b69039eec
