@@ -7,8 +7,6 @@ document.querySelector("#samples").addEventListener("paste", function(e) {
   let pastedText = (e.clipboardData || window.clipboardData).getData("text");
 
   // Insert the plain text into the contenteditable div
-  // document.execCommand("inserttext", false, pastedText);
-  // document.querySelector("#samples").innerText = pastedText;
   const selection = window.getSelection();
   if (!selection.rangeCount) return;
   selection.deleteFromDocument();
@@ -111,8 +109,15 @@ function selectContentEditableLine(el, pos) {
 
 function clearContentEditableLine(el) {
   // remove all mark elements
-  let lines = el.innerHTML.replace(/<\/?[^>]+>/gi, '').trim();
-  el.innerText = lines;
+  let marks = el.querySelectorAll('mark');
+  marks.forEach((mark) => {
+    let text = mark.innerText;
+    let textNode = document.createTextNode(text);
+
+    console.log({ mark, textNode });
+
+    mark.parentNode.replaceChild(textNode, mark);
+  });
 }
 
 function createSVG() {
