@@ -4,7 +4,7 @@
   "main": "index.js",
   "devDependencies": {
     "merge": ">=2.1.1",
-    "postcss": "8.2",
+    "postcss": "8.4",
     "postcss-cli": "^8.2",
     "tailwindcss": "^2.2",
     "watch": "^1.0.2",
